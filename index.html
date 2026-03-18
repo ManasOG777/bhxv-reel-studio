@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>REEL STUDIO — @bhxvfr Creator OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ──────────────────────────────────────────────────── */
+:root{
+  --bg:#080808; --s1:#0f0f0f; --s2:#161616; --s3:#1e1e1e;
+  --bd:rgba(255,255,255,.07); --bd2:rgba(255,255,255,.13);
+  --tx:#edeae2; --mu:#74706c; --mu2:#9e9a96;
+  --ac:#ff4d1c; --a2:#ffcc00; --a3:#00e5a0; --a4:#a855f7; --a5:#38bdf8;
+  --bx:#c084fc;
+  --fd:'Bebas Neue',sans-serif; --fb:'DM Sans',sans-serif; --fm:'DM Mono',monospace;
+  --r:10px; --r2:14px; --sw:232px; --hh:56px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4;}
+button{cursor:pointer;font-family:var(--fb);}
+select,input,textarea{font-family:var(--fb);}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:2px;}
+
+/* ─── TICKER ──────────────────────────────────────────────────── */
+.ticker{background:var(--bx);overflow:hidden;padding:7px 0;white-space:nowrap;user-select:none;}
+.ticker-inner{display:inline-block;animation:tkm 35s linear infinite;}
+.ticker-inner span{font-family:var(--fd);font-size:13px;letter-spacing:3px;padding:0 18px;color:#fff;}
+@keyframes tkm{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ─── HEADER ──────────────────────────────────────────────────── */
+.header{position:sticky;top:0;z-index:300;height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(8,8,8,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--bd);}
+.logo{font-family:var(--fd);font-size:23px;letter-spacing:3px;display:flex;align-items:center;gap:9px;}
+.logo-dot{width:8px;height:8px;background:var(--bx);border-radius:50%;animation:pl 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pl{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:.6;}}
+.hdr-r{display:flex;align-items:center;gap:7px;}
+.badge{font-family:var(--fm);font-size:10px;padding:3px 9px;border-radius:20px;letter-spacing:1px;white-space:nowrap;border:1px solid;}
+.b-pu{background:rgba(192,132,252,.13);color:var(--bx);border-color:rgba(192,132,252,.28);}
+.b-re{background:rgba(255,77,28,.13);color:var(--ac);border-color:rgba(255,77,28,.28);}
+.b-gr{background:rgba(0,229,160,.11);color:var(--a3);border-color:rgba(0,229,160,.24);}
+.b-ye{background:rgba(255,204,0,.11);color:var(--a2);border-color:rgba(255,204,0,.24);}
+.b-bl{background:rgba(56,189,248,.11);color:var(--a5);border-color:rgba(56,189,248,.24);}
+.burger{display:none;background:none;border:1px solid var(--bd2);border-radius:7px;padding:7px 9px;color:var(--tx);font-size:16px;line-height:1;align-items:center;justify-content:center;}
+
+/* ─── LAYOUT ──────────────────────────────────────────────────── */
+.layout{display:flex;min-height:calc(100vh - var(--hh));}
+
+/* ─── SIDEBAR ──────────────────────────────────────────────────── */
+.sidebar{width:var(--sw);flex-shrink:0;position:sticky;top:var(--hh);height:calc(100vh - var(--hh));overflow-y:auto;overflow-x:hidden;border-right:1px solid var(--bd);padding:14px 0 60px;background:var(--bg);transition:transform .28s cubic-bezier(.4,0,.2,1);}
+.ng{padding:0 10px;margin-bottom:2px;}
+.nl{font-family:var(--fm);font-size:9.5px;color:var(--mu);letter-spacing:2.5px;text-transform:uppercase;padding:8px 10px 5px;display:block;}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:8px;margin-bottom:1px;font-size:13px;color:var(--mu2);transition:all .14s;border:1px solid transparent;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;min-height:40px;}
+.ni:hover{background:var(--s1);color:var(--tx);}
+.ni.on{background:rgba(192,132,252,.1);color:var(--tx);border-color:rgba(192,132,252,.22);}
+.ni .ic{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+.nc{margin-left:auto;font-family:var(--fm);font-size:10px;background:var(--s2);color:var(--mu);padding:1px 6px;border-radius:10px;}
+.nn{margin-left:auto;font-family:var(--fm);font-size:9px;background:rgba(0,229,160,.14);color:var(--a3);padding:1px 6px;border-radius:10px;letter-spacing:.5px;}
+.nh{margin-left:auto;font-family:var(--fm);font-size:9px;background:rgba(192,132,252,.14);color:var(--bx);padding:1px 6px;border-radius:10px;}
+.sdiv{height:1px;background:var(--bd);margin:6px 14px;}
+
+/* ─── CONTENT ──────────────────────────────────────────────────── */
+.content{flex:1;min-width:0;overflow-y:auto;max-height:calc(100vh - var(--hh));}
+.page{display:none;animation:fdu .3s ease;}
+.page.on{display:block;}
+@keyframes fdu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── COMMON ──────────────────────────────────────────────────── */
+.ph{padding:0 36px;}
+.phb{padding:0 36px 40px;}
+.hero{padding:36px 36px 20px;position:relative;overflow:hidden;}
+.hbg{position:absolute;inset:0;pointer-events:none;}
+.htag{font-family:var(--fm);font-size:10px;color:var(--bx);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.htag::before{content:'';width:20px;height:1px;background:var(--bx);}
+.htitle{font-family:var(--fd);font-size:clamp(44px,7vw,72px);line-height:.88;letter-spacing:2px;margin-bottom:14px;}
+.hl{color:var(--ac);}
+.hl2{color:var(--bx);}
+.hsub{font-size:13.5px;color:var(--mu2);max-width:520px;line-height:1.75;margin-bottom:24px;}
+.rb{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:26px 36px 14px;}
+.sh2{font-family:var(--fd);font-size:32px;letter-spacing:2px;}
+.sm{font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1.5px;}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);}
+.cp{padding:20px 22px;}
+.cla{border-left:2.5px solid;}
+.cla-re{border-left-color:var(--ac);}
+.cla-gr{border-left-color:var(--a3);}
+.cla-ye{border-left-color:var(--a2);}
+.cla-pu{border-left-color:var(--a4);}
+.cla-bl{border-left-color:var(--a5);}
+.cla-bx{border-left-color:var(--bx);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.gf{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.fw{grid-column:1/-1;}
+.sep{height:1px;background:var(--bd);margin:14px 0;}
+.tag{display:inline-block;font-family:var(--fm);font-size:10px;background:rgba(255,255,255,.04);color:var(--mu2);padding:3px 8px;border-radius:4px;border:1px solid var(--bd);margin:2px;}
+.mv{font-family:var(--fd);font-size:36px;letter-spacing:1px;line-height:1;}
+.ml{font-size:11px;color:var(--mu);margin-top:3px;}
+
+/* ─── SIGNAL BARS ──────────────────────────────────────────────── */
+.sb{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.sb-l{font-size:12px;color:var(--mu2);flex-shrink:0;width:130px;}
+.sb-t{flex:1;height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.sb-f{height:100%;border-radius:3px;transition:width 1.1s ease;}
+.sb-p{font-family:var(--fm);font-size:11px;color:var(--mu);width:32px;text-align:right;}
+
+/* ─── BADGES ──────────────────────────────────────────────────── */
+.tbadge{display:inline-flex;align-items:center;gap:4px;font-family:var(--fm);font-size:10px;padding:3px 8px;border-radius:20px;letter-spacing:.5px;border:1px solid;}
+.tb-fire{background:rgba(255,77,28,.13);color:#ff6b3d;border-color:rgba(255,77,28,.23);}
+.tb-new{background:rgba(0,229,160,.1);color:var(--a3);border-color:rgba(0,229,160,.23);}
+.tb-rise{background:rgba(255,204,0,.1);color:var(--a2);border-color:rgba(255,204,0,.23);}
+.tb-save{background:rgba(168,85,247,.1);color:var(--a4);border-color:rgba(168,85,247,.23);}
+.tb-india{background:rgba(56,189,248,.1);color:var(--a5);border-color:rgba(56,189,248,.23);}
+.tb-bx{background:rgba(192,132,252,.12);color:var(--bx);border-color:rgba(192,132,252,.25);}
+
+/* ─── FORMS ──────────────────────────────────────────────────── */
+.field label{display:block;font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;}
+.field select,.field input,.field textarea{width:100%;background:var(--s1);border:1px solid var(--bd2);border-radius:var(--r);padding:10px 13px;color:var(--tx);font-size:13.5px;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none;}
+.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--bx);}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6;}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2374706c' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+.btn{border:none;border-radius:var(--r);padding:11px 22px;font-size:13.5px;font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+.btn-p{background:var(--bx);color:#fff;}
+.btn-p:hover{background:#b060f0;transform:translateY(-1px);}
+.btn-p:active{transform:translateY(0);}
+.btn-d{font-family:var(--fd);font-size:22px;letter-spacing:2px;padding:12px 28px;}
+.btn-o{background:none;border:1px solid var(--bd2);color:var(--mu2);}
+.btn-o:hover{border-color:var(--bx);color:var(--tx);}
+.copybtn{font-family:var(--fm);font-size:10px;letter-spacing:1px;background:none;border:1px solid var(--bd2);border-radius:6px;padding:5px 10px;color:var(--mu);transition:all .15s;cursor:pointer;}
+.copybtn:hover{border-color:var(--bx);color:var(--bx);}
+
+/* ─── OUTPUT BOX ──────────────────────────────────────────────── */
+.out-box{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;margin-top:18px;}
+.out-grid{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ol{font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;}
+.ov{font-size:13.5px;color:var(--tx);line-height:1.7;background:rgba(255,255,255,.03);padding:11px 14px;border-radius:8px;border:1px solid var(--bd);}
+.ov.hl{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.05);font-weight:600;}
+.phdr{padding:13px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ptitle{font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:2px;text-transform:uppercase;}
+
+/* ─── STATS STRIP ──────────────────────────────────────────────── */
+.sstrip{display:flex;border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;flex-wrap:wrap;}
+.sc{flex:1;padding:14px 18px;border-right:1px solid var(--bd);min-width:100px;}
+.sc:last-child{border-right:none;}
+
+/* ─── TRENDS GRID ──────────────────────────────────────────────── */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;margin:0 36px 32px;}
+.tc{background:var(--s1);padding:18px 20px;cursor:pointer;transition:background .18s;position:relative;overflow:hidden;}
+.tc:hover{background:var(--s2);}
+.trank{font-family:var(--fd);font-size:52px;color:rgba(255,255,255,.03);position:absolute;right:10px;top:-4px;line-height:1;pointer-events:none;}
+.tn{font-size:14.5px;font-weight:600;margin-bottom:5px;line-height:1.3;}
+.td{font-size:12px;color:var(--mu2);line-height:1.6;margin-bottom:12px;}
+.hbar{height:2.5px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;margin-top:10px;}
+.hfill{height:100%;border-radius:2px;}
+
+/* ─── HOOK OPTIONS ──────────────────────────────────────────────── */
+.hopt{padding:11px 14px;border:1px solid var(--bd);border-radius:8px;margin-bottom:7px;cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
+.hopt:hover{border-color:rgba(192,132,252,.4);background:rgba(192,132,252,.04);}
+.hopt.sel{border-color:var(--bx);background:rgba(192,132,252,.07);}
+.hi{font-size:13px;font-weight:600;margin-bottom:3px;}
+.hen{font-size:11.5px;color:var(--mu2);}
+
+/* ─── PHONE ──────────────────────────────────────────────────── */
+.ph-wrap{display:flex;justify-content:center;padding:22px;background:var(--s2);}
+.phone{width:170px;background:#000;border-radius:26px;border:2px solid #2a2a2a;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.7);}
+.ph-notch{width:56px;height:7px;background:#111;border-radius:0 0 7px 7px;margin:0 auto;}
+.ph-screen{height:300px;background:linear-gradient(160deg,#15080a,#08140f,#0c0815);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 9px;position:relative;overflow:hidden;}
+.ph-hook{position:absolute;top:24px;left:9px;right:9px;font-weight:800;font-size:10px;color:#fff;line-height:1.3;text-shadow:0 2px 8px rgba(0,0,0,.8);z-index:10;background:rgba(192,132,252,.9);padding:5px 7px;border-radius:4px;}
+.ph-actions{position:absolute;right:7px;bottom:48px;display:flex;flex-direction:column;gap:9px;align-items:center;z-index:10;}
+.pa{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.pa-ic{width:24px;height:24px;background:rgba(255,255,255,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;backdrop-filter:blur(4px);}
+.pa-c{font-size:7px;color:#fff;font-weight:600;}
+.ph-ui{position:relative;z-index:10;}
+.ph-usr{font-size:9.5px;font-weight:700;color:#fff;margin-bottom:2px;}
+.ph-cap{font-size:8px;color:rgba(255,255,255,.8);line-height:1.4;margin-bottom:6px;}
+.ph-tgs{font-size:7.5px;color:rgba(255,255,255,.55);}
+
+/* ─── HEATMAP ──────────────────────────────────────────────────── */
+.hmg{display:grid;grid-template-columns:60px repeat(24,1fr);gap:2px;}
+.hml{font-family:var(--fm);font-size:10px;color:var(--mu);display:flex;align-items:center;padding-right:6px;}
+.hmh{font-family:var(--fm);font-size:8px;color:var(--mu);text-align:center;padding-bottom:4px;}
+.hmc{height:26px;border-radius:3px;transition:all .2s;cursor:pointer;position:relative;}
+.hmc:hover::after{content:attr(data-tip);position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:var(--s3);border:1px solid var(--bd2);color:var(--tx);font-family:var(--fm);font-size:10px;padding:4px 8px;border-radius:5px;white-space:nowrap;z-index:20;pointer-events:none;}
+
+/* ─── CALENDAR ──────────────────────────────────────────────────── */
+.cal{display:grid;grid-template-columns:60px repeat(7,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
+.cal-h{background:var(--s2);font-family:var(--fm);font-size:10px;color:var(--mu);padding:9px 8px;text-align:center;letter-spacing:1px;}
+.cal-l{background:var(--s2);font-family:var(--fm);font-size:9px;color:var(--mu);padding:10px 8px;display:flex;align-items:flex-start;}
+.cal-c{background:var(--s1);padding:9px 10px;min-height:58px;}
+.cal-t{font-family:var(--fm);font-size:9px;color:var(--mu);margin-bottom:5px;}
+.cal-p{font-size:9.5px;padding:2px 6px;border-radius:3px;margin-bottom:3px;line-height:1.35;}
+.cp-q{background:rgba(192,132,252,.18);color:var(--bx);}
+.cp-r{background:rgba(255,77,28,.16);color:#ff7a50;}
+.cp-s{background:rgba(0,229,160,.13);color:var(--a3);}
+
+/* ─── HINGLISH FEED ──────────────────────────────────────────────── */
+.tfeed{display:flex;flex-direction:column;gap:1px;}
+.tfi{display:flex;align-items:center;gap:14px;padding:13px 18px;background:var(--s1);transition:background .15s;cursor:pointer;}
+.tfi:first-child{border-radius:var(--r2) var(--r2) 0 0;}
+.tfi:last-child{border-radius:0 0 var(--r2) var(--r2);}
+.tfi:hover{background:var(--s2);}
+.tf-rank{font-family:var(--fd);font-size:20px;color:var(--mu);width:28px;text-align:center;flex-shrink:0;}
+.tf-body{flex:1;min-width:0;}
+.tf-phrase{font-size:14px;font-weight:600;margin-bottom:2px;}
+.tf-meaning{font-size:11.5px;color:var(--mu2);}
+.tf-meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;}
+.tf-spike{font-family:var(--fm);font-size:10px;color:var(--a3);}
+.tf-niche{font-family:var(--fm);font-size:9px;color:var(--mu);background:var(--s2);padding:1px 6px;border-radius:10px;}
+
+/* ─── VIRALITY CIRCLE ──────────────────────────────────────────── */
+.vs-c{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid;flex-shrink:0;}
+.vs-n{font-family:var(--fd);font-size:40px;letter-spacing:1px;line-height:1;}
+.vs-l{font-family:var(--fm);font-size:9px;letter-spacing:1.5px;margin-top:2px;}
+
+/* ─── TOOLS ──────────────────────────────────────────────────── */
+.tool-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);padding:18px 20px;cursor:pointer;transition:all .18s;}
+.tool-card:hover{border-color:var(--bx);background:rgba(192,132,252,.04);}
+.tool-icon{font-size:24px;margin-bottom:10px;}
+.tool-name{font-size:14px;font-weight:600;margin-bottom:4px;}
+.tool-desc{font-size:12px;color:var(--mu2);line-height:1.5;}
+
+/* ─── QUOTE SECTION ──────────────────────────────────────────────── */
+.q-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.qtab{background:none;border:1px solid var(--bd2);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--mu2);transition:all .14s;cursor:pointer;}
+.qtab.on{background:rgba(192,132,252,.12);color:var(--bx);border-color:rgba(192,132,252,.3);}
+.q-display{background:var(--s2);border:1px solid rgba(192,132,252,.2);border-radius:var(--r2);padding:36px 28px;text-align:center;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s;}
+.q-text{font-family:var(--fd);font-size:clamp(22px,4vw,34px);letter-spacing:1px;line-height:1.15;color:var(--tx);margin-bottom:14px;}
+.q-attr{font-family:var(--fm);font-size:10px;color:var(--bx);letter-spacing:2px;}
+
+/* ─── CATEGORY CARDS ──────────────────────────────────────────── */
+.cat-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);padding:22px 24px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.cat-card:hover{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.03);}
+.cat-card.featured{border-color:rgba(192,132,252,.45);background:rgba(192,132,252,.05);}
+.cat-card.featured::after{content:'★ MAIN FOCUS';position:absolute;top:12px;right:12px;font-family:var(--fm);font-size:9px;color:var(--bx);letter-spacing:1px;}
+.cat-num{font-family:var(--fd);font-size:56px;color:rgba(192,132,252,.06);position:absolute;right:14px;bottom:-6px;line-height:1;pointer-events:none;}
+.cat-icon{font-size:28px;margin-bottom:10px;}
+.cat-name{font-size:15px;font-weight:600;margin-bottom:6px;}
+.cat-desc{font-size:12.5px;color:var(--mu2);line-height:1.65;margin-bottom:14px;}
+.cat-ex{margin-top:10px;}
+.cat-ex-title{font-family:var(--fm);font-size:9px;color:var(--mu);letter-spacing:1.5px;margin-bottom:6px;}
+.cat-ex-item{font-size:11.5px;color:var(--mu2);padding:5px 9px;background:rgba(255,255,255,.03);border-radius:5px;border:1px solid var(--bd);margin-bottom:4px;line-height:1.4;}
+
+/* ─── AUDIO ──────────────────────────────────────────────────── */
+.audio-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
+.audio-top{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--bd);}
+.audio-disc{width:40px;height:40px;border-radius:50%;background:rgba(192,132,252,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.audio-bot{padding:12px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+
+/* ─── CHECKLIST ──────────────────────────────────────────────── */
+.ck-row{display:flex;align-items:flex-start;gap:12px;padding:12px 18px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .14s;}
+.ck-row:hover{background:var(--s2);}
+.ck-box{width:18px;height:18px;border:1.5px solid var(--bd2);border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--a3);transition:all .15s;}
+.ck-main{font-size:13.5px;font-weight:500;margin-bottom:2px;}
+.ck-tip{font-size:12px;color:var(--mu2);}
+
+/* ─── MOBILE OVERLAY ──────────────────────────────────────────── */
+.sov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:199;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+.sov.open{display:block;}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media(max-width:920px){
+  .sidebar{position:fixed;top:0;left:0;height:100vh;z-index:200;transform:translateX(-100%);}
+  .sidebar.mob{transform:translateX(0);}
+  .burger{display:flex;}
+  .layout{display:block;}
+  .content{max-height:none;overflow-y:visible;}
+  .hero{padding:24px 20px 16px;}
+  .ph,.phb{padding-left:20px;padding-right:20px;}
+  .rb{padding:20px 20px 12px;}
+  .tgrid{margin:0 20px 24px;}
+  .g2{grid-template-columns:1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .out-grid{grid-template-columns:1fr;}
+  .bgrid{grid-template-columns:1fr;}
+  .sstrip{flex-wrap:wrap;}
+  .sc{min-width:50%;}
+}
+@media(max-width:600px){
+  .g3{grid-template-columns:1fr;}
+  .gf{grid-template-columns:1fr;}
+  .logo{font-size:20px;}
+  .htitle{font-size:44px;}
+  .tgrid{grid-template-columns:1fr;margin:0 14px 20px;}
+  .hdr-r .badge:not(.b-pu){display:none;}
+  .hmg{grid-template-columns:46px repeat(12,1fr);overflow-x:auto;}
+  .cal{grid-template-columns:46px repeat(4,1fr);}
+}
+@media(max-width:400px){
+  .header{padding:0 12px;}
+  .hero{padding:18px 14px 14px;}
+  .ph,.phb{padding-left:14px;padding-right:14px;}
+  .rb{padding:14px 14px 10px;}
+  .tgrid{margin:0 14px 20px;}
+}
+@supports(padding:max(0px)){
+  .header{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
+  .sidebar{padding-bottom:max(40px,env(safe-area-inset-bottom));}
+}
+@media(pointer:coarse){
+  .ni,.hopt,.tool-card,.btn,.tc{min-height:44px;}
+  .btn{padding:13px 22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>@BHXVFR</span><span>→</span><span>QUOTE CONTENT</span><span>→</span><span>AESTHETIC REELS</span><span>→</span><span>RELATABLE POV</span><span>→</span><span>SAD DEEP</span><span>→</span><span>HUSTLE MOTIVATION</span><span>→</span><span>TRENDING AUDIO</span><span>→</span><span>GEN Z CREATOR OS INDIA 2026</span><span>→</span>
+    <span>@BHXVFR</span><span>→</span><span>QUOTE CONTENT</span><span>→</span><span>AESTHETIC REELS</span><span>→</span><span>RELATABLE POV</span><span>→</span><span>SAD DEEP</span><span>→</span><span>HUSTLE MOTIVATION</span><span>→</span><span>TRENDING AUDIO</span><span>→</span><span>GEN Z CREATOR OS INDIA 2026</span><span>→</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="burger" onclick="toggleSB()" aria-label="Menu">☰</button>
+    <div class="logo"><div class="logo-dot"></div>REEL STUDIO</div>
+  </div>
+  <div class="hdr-r">
+    <span class="badge b-pu">@BHXVFR</span>
+    <span class="badge b-re">INDIA 2026</span>
+    <span class="badge b-gr">● LIVE</span>
+  </div>
+</header>
+
+<!-- OVERLAY -->
+<div class="sov" id="sov" onclick="toggleSB()"></div>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="ng">
+    <span class="nl">@bhxvfr Profile</span>
+    <div class="ni on" onclick="go('profile',this)"><span class="ic">✦</span>Creator Profile<span class="nh">YOU</span></div>
+    <div class="ni" onclick="go('cats',this)"><span class="ic">🎭</span>7 Content Types<span class="nc">7</span></div>
+    <div class="ni" onclick="go('quotes',this)"><span class="ic">💬</span>Quote Generator<span class="nh">HOT</span></div>
+  </div>
+  <div class="sdiv"></div>
+  <div class="ng">
+    <span class="nl">Explore</span>
+    <div class="ni" onclick="go('trends',this)"><span class="ic">🔥</span>Viral Trends<span class="nc">9</span></div>
+    <div class="ni" onclick="go('formats',this)"><span class="ic">🎬</span>Formats<span class="nc">5</span></div>
+    <div class="ni" onclick="go('hinglish',this)"><span class="ic">🇮🇳</span>Hinglish Live<span class="nn">LIVE</span></div>
+  </div>
+  <div class="sdiv"></div>
+  <div class="ng">
+    <span class="nl">Tools</span>
+    <div class="ni" onclick="go('hooks',this)"><span class="ic">🪝</span>Hook Builder</div>
+    <div class="ni" onclick="go('caption',this)"><span class="ic">✍️</span>Caption Generator<span class="nn">NEW</span></div>
+    <div class="ni" onclick="go('timing',this)"><span class="ic">⏰</span>Best Time Tool<span class="nn">NEW</span></div>
+    <div class="ni" onclick="go('reach',this)"><span class="ic">📡</span>Reach Maximiser<span class="nn">NEW</span></div>
+    <div class="ni" onclick="go('scripts',this)"><span class="ic">🤖</span>Script Generator</div>
+    <div class="ni" onclick="go('virality',this)"><span class="ic">📊</span>Virality Scorer<span class="nn">NEW</span></div>
+  </div>
+  <div class="sdiv"></div>
+  <div class="ng">
+    <span class="nl">Plan</span>
+    <div class="ni" onclick="go('algo',this)"><span class="ic">📈</span>Algorithm Map</div>
+    <div class="ni" onclick="go('schedule',this)"><span class="ic">🗓️</span>Schedule</div>
+    <div class="ni" onclick="go('calendar',this)"><span class="ic">📅</span>Calendar</div>
+    <div class="ni" onclick="go('audio',this)"><span class="ic">🎵</span>Trending Audio</div>
+    <div class="ni" onclick="go('toolkit',this)"><span class="ic">🧰</span>Creator Toolkit</div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="content" id="content">
+
+<!-- ═══════════════════════════════════════════════ PAGE: PROFILE -->
+<div id="p-profile" class="page on">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 20% 50%,rgba(192,132,252,.09) 0,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(255,77,28,.05) 0,transparent 50%)"></div>
+    <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:22px;">
+      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#ec4899);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:30px;letter-spacing:1px;color:#fff;flex-shrink:0;border:2px solid rgba(192,132,252,.4);">BX</div>
+      <div>
+        <div style="font-family:var(--fd);font-size:38px;letter-spacing:3px;margin-bottom:3px;">BHXVFR</div>
+        <div style="font-family:var(--fm);font-size:12px;color:var(--bx);letter-spacing:2px;margin-bottom:10px;">@bhxvfr · GEN Z QUOTE CREATOR · INDIA</div>
+        <div style="font-size:13.5px;color:var(--mu2);line-height:1.75;max-width:480px;margin-bottom:12px;">Relatable quote content for Gen Z India. Aesthetic moods, deep emotions, hustle energy and attitude — built for the scroll, made to hit the heart.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="tbadge tb-bx">★ Quote Content</span>
+          <span class="tbadge tb-fire">Relatable POV</span>
+          <span class="tbadge tb-new">Aesthetic</span>
+          <span class="tbadge tb-rise">Motivational</span>
+        </div>
+      </div>
+    </div>
+    <div class="sstrip" style="max-width:640px;">
+      <div class="sc"><div class="mv" style="color:var(--bx);">7</div><div class="ml">Content categories</div></div>
+      <div class="sc"><div class="mv" style="color:var(--ac);">Quote</div><div class="ml">Primary format</div></div>
+      <div class="sc"><div class="mv" style="color:var(--a3);">Gen Z</div><div class="ml">Target audience</div></div>
+      <div class="sc"><div class="mv" style="color:var(--a2);">9 PM</div><div class="ml">Prime post time IST</div></div>
+    </div>
+  </div>
+
+  <!-- MAIN FOCUS -->
+  <div class="rb"><div class="sh2">MAIN FOCUS</div><div class="sm">YOUR STRONGEST CATEGORY</div></div>
+  <div class="phb">
+    <div style="background:rgba(192,132,252,.06);border:1.5px solid rgba(192,132,252,.3);border-radius:var(--r2);padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:var(--fd);font-size:130px;color:rgba(192,132,252,.05);line-height:1;pointer-events:none;">7</div>
+      <div style="font-family:var(--fm);font-size:10px;color:var(--bx);letter-spacing:2px;margin-bottom:12px;">★ PRIMARY NICHE</div>
+      <div style="font-family:var(--fd);font-size:clamp(26px,5vw,40px);letter-spacing:2px;margin-bottom:12px;">QUOTE-BASED / ATTITUDE<br>CONTENT</div>
+      <div style="font-size:13.5px;color:var(--mu2);line-height:1.8;max-width:540px;margin-bottom:20px;">This is your #1 category. Gen Z connects hardest with text-on-video quote content that captures their exact feelings — the ones they couldn't articulate themselves. When a quote feels like it was written about them, they save it, share it, and come back to your account. This is the compound growth engine for @bhxvfr.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px;">
+        <div style="padding:12px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);">
+          <div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--bx);">📌 Saves</div>
+          <div style="font-size:12px;color:var(--mu2);">Quote reels get 4× more saves than other formats. Saves = algorithm fuel for @bhxvfr.</div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);">
+          <div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--a3);">📤 Shares</div>
+          <div style="font-size:12px;color:var(--mu2);">Relatable quotes get tagged in DMs 8× more than any other content type.</div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);">
+          <div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--a2);">🔁 Loops</div>
+          <div style="font-size:12px;color:var(--mu2);">Text-heavy reels get rewatched 3× to absorb the quote. Loop rate = reach boost.</div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);">
+          <div style="font-size:12px;font-weight:600;margin-bottom:3px;color:var(--ac);">💬 Comments</div>
+          <div style="font-size:12px;color:var(--mu2);">"This is literally me" floods quote posts. Comment velocity = viral push.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROWTH STRATEGY -->
+    <div class="sh2" style="margin-bottom:14px;">GROWTH STRATEGY FOR @BHXVFR</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+      <div class="card cp cla cla-bx" style="display:flex;gap:12px;">
+        <div style="font-size:22px;flex-shrink:0;">✦</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:4px;">Post quote content 4–5× per week minimum</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Consistency in quote content builds a recognisable aesthetic. Your audience follows you for a specific emotional feeling — deliver it reliably. 4–5 quote reels per week is your foundation formula.</div></div>
+      </div>
+      <div class="card cp cla cla-re" style="display:flex;gap:12px;">
+        <div style="font-size:22px;flex-shrink:0;">🎵</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:4px;">Audio is 50% of your emotional impact</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">For quote and aesthetic content, background audio sets the entire emotional tone. Slowed + reverb songs, piano covers, lo-fi beats — match the audio energy to the quote's emotion. Wrong audio kills a great quote.</div></div>
+      </div>
+      <div class="card cp cla cla-gr" style="display:flex;gap:12px;">
+        <div style="font-size:22px;flex-shrink:0;">💬</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:4px;">End every reel with "tag someone who needs this"</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Relatable quote content is inherently tagging content. This single CTA increases your share rate by 2–3× on emotional posts. Make tagging the default action your viewers take.</div></div>
+      </div>
+      <div class="card cp cla cla-ye" style="display:flex;gap:12px;">
+        <div style="font-size:22px;flex-shrink:0;">🎨</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:4px;">Lock in your aesthetic and never change it</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Dark backgrounds, minimal text, consistent font, consistent colour — when someone sees your reel on their feed without reading the handle, they should know it's @bhxvfr instantly. Aesthetic recognition = follower loyalty.</div></div>
+      </div>
+      <div class="card cp cla cla-bx" style="display:flex;gap:12px;">
+        <div style="font-size:22px;flex-shrink:0;">📍</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:4px;">70/30 content ratio — lead with quotes always</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">70% quote / attitude / relatable content. 30% spread across aesthetic, sad, motivational, and talking-head. This ratio keeps your audience emotionally engaged while the variety prevents content fatigue.</div></div>
+      </div>
+    </div>
+
+    <!-- CONTENT MIX -->
+    <div class="card cp">
+      <div style="font-size:14px;font-weight:600;margin-bottom:16px;">Recommended content mix for @bhxvfr</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Quote / Attitude Content</span><span style="font-family:var(--fm);font-size:12px;color:var(--bx);font-weight:600;">35%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:35%;height:100%;background:var(--bx);border-radius:3px;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Relatable / Emotional / POV</span><span style="font-family:var(--fm);font-size:12px;color:var(--ac);font-weight:600;">25%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:25%;height:100%;background:var(--ac);border-radius:3px;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Sad / Deep / Expressive</span><span style="font-family:var(--fm);font-size:12px;color:var(--a5);font-weight:600;">15%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:15%;height:100%;background:var(--a5);border-radius:3px;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Motivational / Dream / Hustle</span><span style="font-family:var(--fm);font-size:12px;color:var(--a2);font-weight:600;">12%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:12%;height:100%;background:var(--a2);border-radius:3px;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Aesthetic / Mood Reels</span><span style="font-family:var(--fm);font-size:12px;color:var(--a3);font-weight:600;">8%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:8%;height:100%;background:var(--a3);border-radius:3px;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Trending Audio / Viral Format</span><span style="font-family:var(--fm);font-size:12px;color:var(--a4);font-weight:600;">3%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:3%;height:100%;background:var(--a4);border-radius:3px;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;">Talking-Head / Advice / Opinion</span><span style="font-family:var(--fm);font-size:12px;color:var(--mu2);font-weight:600;">2%</span></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;"><div style="width:2%;height:100%;background:var(--mu2);border-radius:3px;"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: 7 CATEGORIES -->
+<div id="p-cats" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 30% 50%,rgba(192,132,252,.07) 0,transparent 55%)"></div>
+    <div class="htag">@BHXVFR CONTENT SYSTEM</div>
+    <div class="htitle">7 CONTENT<br><span class="hl2">CATEGORIES</span></div>
+    <div class="hsub">Every reel @bhxvfr posts fits into one of these 7 buckets. Quote content is the anchor — the other 6 support and diversify it.</div>
+  </div>
+  <div class="phb">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;">
+
+      <!-- CAT 7: QUOTE (FEATURED / MAIN) -->
+      <div class="cat-card featured" onclick="go('quotes',document.querySelector('[onclick*=quotes]'))">
+        <div class="cat-num">7</div>
+        <div class="cat-icon">💬</div>
+        <div class="cat-name">Quote-Based / Attitude Content</div>
+        <span class="tbadge tb-bx" style="margin-bottom:12px;display:inline-flex;">★ @BHXVFR PRIMARY FORMAT</span>
+        <div class="cat-desc">Bold text-on-video quotes that hit the exact emotion Gen Z can't put into words. Minimal design, dark aesthetic, loaded meaning. When it resonates, it gets shared to stories thousands of times.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">QUOTE EXAMPLES</div>
+          <div class="cat-ex-item">"Not everyone who leaves was lost. Some just outgrew the place."</div>
+          <div class="cat-ex-item">"Main khud hi bahut hun — kisi aur ki zaroorat nahi."</div>
+          <div class="cat-ex-item">"Soft heart. Silent revenge. Watch me."</div>
+          <div class="cat-ex-item">"They didn't break me. They built me."</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#attitude</span><span class="tag">#quotes</span><span class="tag">#vibes</span><span class="tag">#selflove</span></div>
+        <div style="margin-top:10px;font-family:var(--fm);font-size:10px;color:var(--bx);">→ Click to open Quote Generator</div>
+      </div>
+
+      <!-- CAT 2: RELATABLE -->
+      <div class="cat-card">
+        <div class="cat-num">2</div>
+        <div class="cat-icon">🫀</div>
+        <div class="cat-name">Relatable / Emotional / POV Content</div>
+        <span class="tbadge tb-fire" style="margin-bottom:12px;display:inline-flex;">🔥 HIGHEST SHARES</span>
+        <div class="cat-desc">First-person scenarios that make viewers stop and think "this is literally me." POV frames, relatable situations, emotional honesty. The "that's me" recognition triggers immediate tagging and sharing.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">FORMAT EXAMPLES</div>
+          <div class="cat-ex-item">POV: You smile in public but cry when the song hits at night</div>
+          <div class="cat-ex-item">Me pretending I'm okay while listening to sad songs at 2am</div>
+          <div class="cat-ex-item">That moment when you realize you've been overthinking again</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#relatable</span><span class="tag">#POV</span><span class="tag">#feelings</span></div>
+      </div>
+
+      <!-- CAT 1: AESTHETIC -->
+      <div class="cat-card">
+        <div class="cat-num">1</div>
+        <div class="cat-icon">🌑</div>
+        <div class="cat-name">Aesthetic / Mood Reels</div>
+        <span class="tbadge tb-new" style="margin-bottom:12px;display:inline-flex;">✦ WATCH TIME KING</span>
+        <div class="cat-desc">Visually driven reels that establish and sell a specific mood — dark academia, quiet luxury, soft chaos, main character energy. The content IS the aesthetic. No explanation needed.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">MOOD EXAMPLES</div>
+          <div class="cat-ex-item">Dark aesthetic + rain sounds + single line of text overlay</div>
+          <div class="cat-ex-item">Golden hour clips + lo-fi + "main character" energy</div>
+          <div class="cat-ex-item">Empty streets + slowed audio + existential quote</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#aesthetic</span><span class="tag">#moodboard</span><span class="tag">#darkacademia</span></div>
+      </div>
+
+      <!-- CAT 3: SAD -->
+      <div class="cat-card">
+        <div class="cat-num">3</div>
+        <div class="cat-icon">🌧️</div>
+        <div class="cat-name">Sad / Deep / Expressive Content</div>
+        <span class="tbadge tb-save" style="margin-bottom:12px;display:inline-flex;">💾 HIGHEST SAVES</span>
+        <div class="cat-desc">Deep emotional content that gives voice to feelings that are hard to say out loud. Grief, loss, longing, numbness, heartbreak — when you capture an unspoken feeling perfectly, saves and DMs flood in.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">CONTENT EXAMPLES</div>
+          <div class="cat-ex-item">"The worst feeling is wanting someone who doesn't want you back."</div>
+          <div class="cat-ex-item">"I don't even know what's wrong with me anymore."</div>
+          <div class="cat-ex-item">Rain + sad audio + "I miss who I was before you."</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#sadvibes</span><span class="tag">#deepthoughts</span><span class="tag">#feelings</span></div>
+      </div>
+
+      <!-- CAT 4: MOTIVATIONAL -->
+      <div class="cat-card">
+        <div class="cat-num">4</div>
+        <div class="cat-icon">🔥</div>
+        <div class="cat-name">Motivational / Dream / Hustle Content</div>
+        <span class="tbadge tb-rise" style="margin-bottom:12px;display:inline-flex;">⚡ HIGH REACH</span>
+        <div class="cat-desc">Ambition, grind, dreams, silent hustle, fire to keep going when no one's watching. Resonates hardest with Gen Z who feel underestimated. The "I'm going to prove them wrong" energy.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">CONTENT EXAMPLES</div>
+          <div class="cat-ex-item">"Working in silence. The noise comes after."</div>
+          <div class="cat-ex-item">"One day they'll ask what my secret was. I'll say: I didn't stop."</div>
+          <div class="cat-ex-item">Early morning + hustle montage + fire quote overlay</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#hustle</span><span class="tag">#motivation</span><span class="tag">#grindset</span></div>
+      </div>
+
+      <!-- CAT 5: TRENDING -->
+      <div class="cat-card">
+        <div class="cat-num">5</div>
+        <div class="cat-icon">🎵</div>
+        <div class="cat-name">Trending Audio / Viral Format</div>
+        <span class="tbadge tb-india" style="margin-bottom:12px;display:inline-flex;">🌐 DISCOVERY ENGINE</span>
+        <div class="cat-desc">Jump on trending audio and viral formats but always apply the @bhxvfr quote/aesthetic spin. This category brings new viewers from outside your current audience — it's your discoverability lever.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">FORMAT EXAMPLES</div>
+          <div class="cat-ex-item">Trending audio + quote content as the visual hook</div>
+          <div class="cat-ex-item">Viral transition format + before/after attitude quote</div>
+          <div class="cat-ex-item">Trending sound + aesthetic reel + attitude caption</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#trending</span><span class="tag">#trendingsound</span><span class="tag">#viral</span></div>
+      </div>
+
+      <!-- CAT 6: TALKING HEAD -->
+      <div class="cat-card">
+        <div class="cat-num">6</div>
+        <div class="cat-icon">🎙️</div>
+        <div class="cat-name">Talking-Head / Advice / Opinion Content</div>
+        <span class="tbadge tb-rise" style="margin-bottom:12px;display:inline-flex;">⚡ TRUST BUILDER</span>
+        <div class="cat-desc">Direct-to-camera realness. Your opinions, experiences, perspective on life as a Gen Z Indian. This builds trust and converts followers into loyal community. Use sparingly — it's a trust deposit.</div>
+        <div class="cat-ex">
+          <div class="cat-ex-title">CONTENT EXAMPLES</div>
+          <div class="cat-ex-item">My honest opinion on [relatable Gen Z topic]</div>
+          <div class="cat-ex-item">Things I stopped doing that changed my life</div>
+          <div class="cat-ex-item">Why I don't explain myself to anyone anymore</div>
+        </div>
+        <div style="margin-top:12px;"><span class="tag">#opinion</span><span class="tag">#realness</span><span class="tag">#advice</span></div>
+      </div>
+
+    </div>
+    <div style="margin-top:16px;" class="card cp cla cla-bx">
+      <div style="font-size:14px;font-weight:600;margin-bottom:8px;">@bhxvfr Category Priority Rule</div>
+      <div style="font-size:13px;color:var(--mu2);line-height:1.75;">When in doubt, post a quote reel. Categories 7 (Quote) and 2 (Relatable) combined should make up 60% of your content at minimum. These two are the compound growth engine for your specific audience. The other 5 categories add variety and prevent burnout — but they support the core, they don't replace it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: QUOTE GENERATOR -->
+<div id="p-quotes" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 30% 40%,rgba(192,132,252,.08) 0,transparent 55%)"></div>
+    <div class="htag">@BHXVFR PRIMARY TOOL</div>
+    <div class="htitle">QUOTE<br><span class="hl2">GENERATOR</span></div>
+    <div class="hsub">Generate ready-to-post Gen Z quotes for @bhxvfr. Pick an emotion category — get a quote, caption, hashtags and audio suggestion. Every quote hits different.</div>
+  </div>
+  <div class="phb">
+    <div class="q-tabs" id="qtabs">
+      <button class="qtab on" onclick="setQcat('attitude',this)">💬 Attitude</button>
+      <button class="qtab" onclick="setQcat('relatable',this)">🫀 Relatable</button>
+      <button class="qtab" onclick="setQcat('sad',this)">🌧️ Sad / Deep</button>
+      <button class="qtab" onclick="setQcat('hustle',this)">🔥 Hustle</button>
+      <button class="qtab" onclick="setQcat('aesthetic',this)">🌑 Aesthetic</button>
+      <button class="qtab" onclick="setQcat('healing',this)">🌸 Healing</button>
+      <button class="qtab" onclick="setQcat('hinglish',this)">🇮🇳 Hinglish</button>
+    </div>
+    <div class="q-display">
+      <div class="q-text" id="q-text">"Not everyone who leaves was lost. Some just outgrew the place."</div>
+      <div class="q-attr" id="q-attr">ATTITUDE · @BHXVFR</div>
+    </div>
+    <div style="display:flex;gap:10px;margin:14px 0;flex-wrap:wrap;">
+      <button class="btn btn-p btn-d" onclick="genQuote()" style="flex:1;justify-content:center;min-width:180px;">GENERATE QUOTE ↗</button>
+      <button class="btn btn-o" onclick="copyQtext()" style="flex:1;min-width:110px;justify-content:center;">COPY QUOTE</button>
+      <button class="btn btn-o" onclick="saveQuote()" style="flex:1;min-width:100px;justify-content:center;">SAVE ★</button>
+    </div>
+    <div class="out-box" id="q-out" style="display:none;">
+      <div class="phdr"><span class="ptitle">FULL REEL PACKAGE</span><button class="copybtn" onclick="copyOut('q-body')">COPY ALL</button></div>
+      <div class="out-grid" id="q-body"></div>
+    </div>
+    <div id="saved-wrap" style="display:none;margin-top:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+        <div style="font-family:var(--fd);font-size:24px;letter-spacing:2px;">SAVED QUOTES</div>
+        <button class="copybtn" onclick="clearSaved()">CLEAR ALL</button>
+      </div>
+      <div id="saved-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: TRENDS -->
+<div id="p-trends" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 25% 60%,rgba(255,77,28,.07) 0,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(168,85,247,.05) 0,transparent 50%)"></div>
+    <div class="htag">VIRAL CONTENT OS — INDIA 2026</div>
+    <div class="htitle">WHAT'S<br><span class="hl">BLOWING UP</span></div>
+    <div class="hsub">Real-time Gen Z formats going viral — adapted for Indian Instagram Reels. Remix every trend with @bhxvfr's quote and aesthetic spin.</div>
+    <div class="sstrip" style="max-width:640px;">
+      <div class="sc"><div class="mv" style="color:var(--ac);">500M</div><div class="ml">Daily Reels viewers</div></div>
+      <div class="sc"><div class="mv" style="color:var(--a3);">22%</div><div class="ml">More reach vs posts</div></div>
+      <div class="sc"><div class="mv" style="color:var(--a2);">3 sec</div><div class="ml">Hook or lose them</div></div>
+      <div class="sc"><div class="mv" style="color:var(--bx);">Quote</div><div class="ml">#1 save driver</div></div>
+    </div>
+  </div>
+  <div class="rb"><div class="sh2">TOP TRENDS</div><div class="sm">MARCH 2026</div></div>
+  <div class="tgrid">
+    <div class="tc"><div class="trank">01</div><span class="tbadge tb-bx" style="margin-bottom:9px;">★ @BHXVFR NATIVE</span><div class="tn">Quote / Text-on-Video Reels</div><div class="td">Bold quote on dark background + emotional audio. The simplest format with the highest save + share rate. This IS @bhxvfr.</div><div><span class="tag">#quotes</span><span class="tag">#attitude</span><span class="tag">#vibes</span></div><div class="hbar"><div class="hfill" style="width:98%;background:var(--bx)"></div></div></div>
+    <div class="tc"><div class="trank">02</div><span class="tbadge tb-fire" style="margin-bottom:9px;">🔥 HOTTEST</span><div class="tn">POV Storytelling</div><div class="td">First-person relatable moments. "POV: You smile in public but fall apart when the song hits." Instant emotional identification.</div><div><span class="tag">#POV</span><span class="tag">#storytime</span><span class="tag">#relatable</span></div><div class="hbar"><div class="hfill" style="width:95%;background:var(--ac)"></div></div></div>
+    <div class="tc"><div class="trank">03</div><span class="tbadge tb-new" style="margin-bottom:9px;">✦ RISING</span><div class="tn">Quiet Flex Aesthetic</div><div class="td">Soft lighting, calm confidence. Anti-loud-influencer energy. Perfect for @bhxvfr dark aesthetic reels.</div><div><span class="tag">#quietluxury</span><span class="tag">#softlife</span></div><div class="hbar"><div class="hfill" style="width:88%;background:var(--a3)"></div></div></div>
+    <div class="tc"><div class="trank">04</div><span class="tbadge tb-save" style="margin-bottom:9px;">💾 SAVE-BAIT</span><div class="tn">3-Quote Speedrun</div><div class="td">"3 quotes for when you feel [emotion]" — Fast cuts between 3 powerful quotes. Viewers save to revisit later.</div><div><span class="tag">#quotes</span><span class="tag">#feelings</span></div><div class="hbar"><div class="hfill" style="width:85%;background:var(--a4)"></div></div></div>
+    <div class="tc"><div class="trank">05</div><span class="tbadge tb-rise" style="margin-bottom:9px;">⚡ CLIMBING</span><div class="tn">GRWM — Villain Arc</div><div class="td">"GRWM to start my villain arc". Self-deprecating + emotional honesty = pure @bhxvfr energy.</div><div><span class="tag">#GRWM</span><span class="tag">#villainarc</span></div><div class="hbar"><div class="hfill" style="width:78%;background:var(--a2)"></div></div></div>
+    <div class="tc"><div class="trank">06</div><span class="tbadge tb-fire" style="margin-bottom:9px;">🔥 SHARE BAIT</span><div class="tn">Nostalgia Bait</div><div class="td">Mining early Gen Z culture. Massive tagging and sharing among 18–28 year olds. Quote overlay makes it hit harder.</div><div><span class="tag">#nostalgia</span><span class="tag">#throwback</span></div><div class="hbar"><div class="hfill" style="width:82%;background:var(--ac)"></div></div></div>
+    <div class="tc"><div class="trank">07</div><span class="tbadge tb-new" style="margin-bottom:9px;">✦ LOOP KING</span><div class="tn">Before / After Reveal</div><div class="td">Show "after" 0.5s → cut to "before". Brain scrambles → viewers rewatch 3+ times. @bhxvfr angle: attitude transformation.</div><div><span class="tag">#transformation</span><span class="tag">#beforeafter</span></div><div class="hbar"><div class="hfill" style="width:90%;background:var(--a3)"></div></div></div>
+    <div class="tc"><div class="trank">08</div><span class="tbadge tb-fire" style="margin-bottom:9px;">🔥 WATCH TIME</span><div class="tn">Companion "With Me" Reels</div><div class="td">Study/work/aesthetic-with-me. Massive watch time = algo gold. Use @bhxvfr aesthetic as the visual layer.</div><div><span class="tag">#studywithme</span><span class="tag">#aesthetic</span></div><div class="hbar"><div class="hfill" style="width:88%;background:var(--ac)"></div></div></div>
+    <div class="tc"><div class="trank">09</div><span class="tbadge tb-india" style="margin-bottom:9px;">🇮🇳 INDIA ONLY</span><div class="tn">Hinglish Attitude Quotes</div><div class="td">"Main khud hi bahut hun" type quotes — Hinglish attitude content that hits across all Indian Gen Z regardless of language.</div><div><span class="tag">#hinglish</span><span class="tag">#desivibes</span><span class="tag">#attitude</span></div><div class="hbar"><div class="hfill" style="width:93%;background:var(--a2)"></div></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: FORMATS -->
+<div id="p-formats" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 40% 50%,rgba(255,77,28,.07) 0,transparent 55%)"></div>
+    <div class="htag">FORMAT GUIDE FOR @BHXVFR</div>
+    <div class="htitle">CONTENT<br><span class="hl">FORMATS</span></div>
+    <div class="hsub">Pick the format before the topic. Each format has different algorithm signals and ideal lengths. For @bhxvfr, quote reels are always format #1.</div>
+  </div>
+  <div class="phb" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="card cp cla cla-bx"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;flex-wrap:wrap;gap:6px;"><div style="font-size:15px;font-weight:600;">Quote / Text-on-Video Reel</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tbadge tb-bx">★ @BHXVFR MAIN</span><span style="font-family:var(--fm);font-size:11px;color:var(--mu);">7–15 sec</span></div></div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Bold quote text on dark/aesthetic background with emotionally matched audio. Simplest format, highest save + share rate for emotional content. Primary signal: Saves, Shares, Loops — the three most powerful algo signals.</div><div style="margin-top:12px;padding:11px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);font-size:12.5px;color:var(--mu2);"><strong style="color:var(--bx);">@bhxvfr twist:</strong> Dark background, minimal clean font, slowed reverb audio. Let the quote breathe — no clutter.</div></div>
+    <div class="card cp cla cla-re"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;flex-wrap:wrap;gap:6px;"><div style="font-size:15px;font-weight:600;">Before / After Reveal</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tbadge tb-fire">🔥 High retention</span><span style="font-family:var(--fm);font-size:11px;color:var(--mu);">7–20 sec</span></div></div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Show "after" for 0.5 sec, cut to "before". Brain scrambles → viewers rewatch 3+ times. Best for makeovers, transformation, attitude shifts.</div><div style="margin-top:12px;padding:11px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);font-size:12.5px;color:var(--mu2);"><strong style="color:var(--ac);">@bhxvfr twist:</strong> "Before the villain arc vs after" — attitude transformation reels.</div></div>
+    <div class="card cp cla cla-gr"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;flex-wrap:wrap;gap:6px;"><div style="font-size:15px;font-weight:600;">3-Quote Speedrun</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tbadge tb-save">💾 Save-bait</span><span style="font-family:var(--fm);font-size:11px;color:var(--mu);">10–25 sec</span></div></div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">"3 quotes for when you feel [emotion]" — speedrun format applied to quote content. Fast cuts between 3 powerful quotes. Viewers save for later reference. Consistent save-bait format.</div><div style="margin-top:12px;padding:11px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);font-size:12.5px;color:var(--mu2);"><strong style="color:var(--a3);">@bhxvfr twist:</strong> "3 quotes for when you're done explaining yourself"</div></div>
+    <div class="card cp cla cla-ye"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;flex-wrap:wrap;gap:6px;"><div style="font-size:15px;font-weight:600;">Talking Head + Text Overlay</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tbadge tb-new">✦ Trust builder</span><span style="font-family:var(--fm);font-size:11px;color:var(--mu);">30–60 sec</span></div></div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Raw direct-to-camera. Use sparingly — it builds deep trust. Use for opinion pieces about feelings, life, relationships. On-screen text keeps sound-off viewers engaged.</div><div style="margin-top:12px;padding:11px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);font-size:12.5px;color:var(--mu2);"><strong style="color:var(--a2);">@bhxvfr twist:</strong> "Why I stopped explaining myself" — direct honest opinion</div></div>
+    <div class="card cp cla cla-pu"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;flex-wrap:wrap;gap:6px;"><div style="font-size:15px;font-weight:600;">POV Storytelling</div><div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="tbadge tb-fire">🔥 Share trigger</span><span style="font-family:var(--fm);font-size:11px;color:var(--mu);">15–30 sec</span></div></div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">First-person scenario pulling viewer into a relatable emotional moment. "POV: You've been okay for weeks and then one song comes on." Extremely shareable for emotional content.</div><div style="margin-top:12px;padding:11px 14px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bd);font-size:12.5px;color:var(--mu2);"><strong style="color:var(--a4);">@bhxvfr twist:</strong> POV reels with attitude quote as the caption anchor.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: HINGLISH LIVE -->
+<div id="p-hinglish" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 20% 50%,rgba(255,204,0,.06) 0,transparent 55%)"></div>
+    <div class="htag">AUTO-REFRESHES EVERY 60 SECONDS</div>
+    <div class="htitle">HINGLISH<br><span class="hl">TRENDING</span></div>
+    <div class="hsub">The freshest Hinglish phrases blowing up in India right now. Use in quote overlays, captions and hooks for @bhxvfr content.</div>
+  </div>
+  <div class="rb ph" style="padding-bottom:0;">
+    <div class="sh2">LIVE FEED</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:7px;height:7px;border-radius:50%;background:var(--a3);animation:pl 2s ease-in-out infinite;flex-shrink:0;"></div>
+      <span class="sm" id="h-ts">LIVE</span>
+      <button class="copybtn" onclick="refreshH()">↻ REFRESH</button>
+    </div>
+  </div>
+  <div class="phb" style="padding-top:14px;">
+    <div id="h-feed" class="tfeed"></div>
+    <div style="margin-top:16px;" class="card cp cla cla-ye">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px;">How @bhxvfr uses Hinglish trends</div>
+      <div style="font-size:13px;color:var(--mu2);line-height:1.8;">
+        1. <strong style="color:var(--tx);">Quote overlay</strong> — use the phrase as your main quote text on dark aesthetic background.<br>
+        2. <strong style="color:var(--tx);">Caption hook</strong> — open your caption with the phrase before the English content for cultural resonance.<br>
+        3. <strong style="color:var(--tx);">Audio trigger</strong> — search the phrase in Reels audio to find trending sounds using it.<br>
+        4. <strong style="color:var(--tx);">Comment bait</strong> — ask "agree karo?" at the end. Hinglish phrases get 3× more comment replies.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: HOOKS -->
+<div id="p-hooks" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 30% 40%,rgba(192,132,252,.07) 0,transparent 55%)"></div>
+    <div class="htag">STOP-SCROLL ENGINE</div>
+    <div class="htitle">HOOK<br><span class="hl2">BUILDER</span></div>
+    <div class="hsub">First 3 seconds decide everything. Click any hook to preview it live on the phone mockup and see effectiveness scores.</div>
+  </div>
+  <div class="phb">
+    <div style="display:grid;grid-template-columns:1fr 310px;gap:20px;" class="bgrid">
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="phdr"><span class="ptitle">@BHXVFR QUOTE HOOKS</span><span class="tbadge tb-bx">YOUR FORMAT</span></div>
+          <div style="padding:16px;">
+            <div class="hopt" onclick="prevH(this,'✦ \"Not everyone who leaves was lost.\"','Attitude — resonates with anyone who\'s been left or left someone',92,90,88)"><div class="hi">✦ "Not everyone who leaves was lost."</div><div class="hen">Attitude + mystery — viewers pause to absorb the meaning</div></div>
+            <div class="hopt" onclick="prevH(this,'🌑 \"Soft heart. Silent revenge. Watch me.\"','Villain era meets vulnerability — peak @bhxvfr energy',96,93,89)"><div class="hi">🌑 "Soft heart. Silent revenge. Watch me."</div><div class="hen">Villain era + vulnerability = peak share trigger</div></div>
+            <div class="hopt" onclick="prevH(this,'🌧️ \"I don\'t miss you. I miss who I was with you.\"','Emotional depth — hits hardest at 2AM scrolling',94,95,91)"><div class="hi">🌧️ "I don't miss you. I miss who I was with you."</div><div class="hen">Emotional depth — gets shared to stories immediately</div></div>
+            <div class="hopt" onclick="prevH(this,'🔥 \"Working in silence. The noise comes after.\"','Hustle motivation — saves and bookmarks like crazy',88,85,86)"><div class="hi">🔥 "Working in silence. The noise comes after."</div><div class="hen">Hustle energy — saves + shares among aspirational Gen Z</div></div>
+            <div class="hopt" onclick="prevH(this,'💫 \"Main khud hi bahut hun.\"','Hinglish attitude — hyperlocal identity + self-love',90,87,97)"><div class="hi">💫 "Main khud hi bahut hun."</div><div class="hen">Hinglish self-sufficiency — deeply resonant with Indian Gen Z</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="phdr"><span class="ptitle">HINGLISH HOOKS</span><span class="tbadge tb-fire">PROVEN</span></div>
+          <div style="padding:16px;">
+            <div class="hopt" onclick="prevH(this,'😈 \"Villain arc shuru ho gayi...\"','Villain era hook — huge trend in India right now',91,88,99)"><div class="hi">😈 "Villain arc shuru ho gayi..."</div><div class="hen">Trending phrase — massive India resonance right now</div></div>
+            <div class="hopt" onclick="prevH(this,'🤯 Yaar, kisi ne pehle kyun nahi bataya?','Discovery emotion = highest share rate in India',90,92,98)"><div class="hi">🤯 "Yaar, kisi ne pehle kyun nahi bataya?"</div><div class="hen">Discovery emotion = highest share rate</div></div>
+            <div class="hopt" onclick="prevH(this,'🚫 \"Teri zaroorat nahi.\"','Independence + attitude — self-love content that hits',92,86,97)"><div class="hi">🚫 "Teri zaroorat nahi."</div><div class="hen">Independence + attitude — deep India resonance</div></div>
+            <div class="hopt" onclick="prevH(this,'🎬 POV: [Hyper-specific relatable moment]','POV hook — instant emotional identification = saves',93,90,82)"><div class="hi">🎬 "POV: [Hyper-specific relatable moment]"</div><div class="hen">"That's literally me" = saves + shares + comments</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="overflow:hidden;">
+          <div class="phdr"><span class="ptitle">REEL PREVIEW</span><span class="tbadge tb-bx" id="prev-live" style="display:none;">● LIVE</span></div>
+          <div class="ph-wrap">
+            <div class="phone">
+              <div class="ph-notch"></div>
+              <div class="ph-screen">
+                <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a0808,#08120a,#080812);display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.18;">✦</div>
+                <div class="ph-hook" id="p-hook-txt">Select a hook →</div>
+                <div class="ph-actions">
+                  <div class="pa"><div class="pa-ic">❤️</div><div class="pa-c">2.4M</div></div>
+                  <div class="pa"><div class="pa-ic">💬</div><div class="pa-c">48K</div></div>
+                  <div class="pa"><div class="pa-ic">↗️</div><div class="pa-c">91K</div></div>
+                  <div class="pa"><div class="pa-ic">🔖</div><div class="pa-c">320K</div></div>
+                </div>
+                <div class="ph-ui">
+                  <div class="ph-usr">@bhxvfr</div>
+                  <div class="ph-cap" id="p-cap-txt">Your hook appears here</div>
+                  <div class="ph-tgs">#quotes #attitude #vibes #genz</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:14px 16px;">
+            <div style="font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1px;margin-bottom:10px;">EFFECTIVENESS SCORES</div>
+            <div class="sb"><div class="sb-l">Stop-scroll rate</div><div class="sb-t"><div class="sb-f" id="s-stop" style="width:0%;background:var(--ac)"></div></div><div class="sb-p" id="sv-stop">—</div></div>
+            <div class="sb"><div class="sb-l">Share potential</div><div class="sb-t"><div class="sb-f" id="s-share" style="width:0%;background:var(--a3)"></div></div><div class="sb-p" id="sv-share">—</div></div>
+            <div class="sb"><div class="sb-l">India resonance</div><div class="sb-t"><div class="sb-f" id="s-india" style="width:0%;background:var(--a2)"></div></div><div class="sb-p" id="sv-india">—</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: CAPTION GENERATOR -->
+<div id="p-caption" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 30% 40%,rgba(0,229,160,.06) 0,transparent 55%)"></div>
+    <div class="htag">CAPTION ENGINE FOR @BHXVFR</div>
+    <div class="htitle">CAPTION<br><span class="hl" style="color:var(--a3);">GENERATOR</span></div>
+    <div class="hsub">Pick your content category and get a full viral caption with Hinglish hooks, hashtags, SEO keywords and CTA — tuned for @bhxvfr's aesthetic.</div>
+  </div>
+  <div class="phb">
+    <div class="gf" style="margin-bottom:14px;">
+      <div class="field"><label>Content Category</label>
+        <select id="cap-cat">
+          <option value="quote">Quote / Attitude Content</option>
+          <option value="relatable">Relatable / Emotional / POV</option>
+          <option value="sad">Sad / Deep / Expressive</option>
+          <option value="hustle">Motivational / Dream / Hustle</option>
+          <option value="aesthetic">Aesthetic / Mood</option>
+          <option value="trending">Trending Audio / Viral Format</option>
+          <option value="advice">Talking-Head / Advice / Opinion</option>
+        </select>
+      </div>
+      <div class="field"><label>Topic (optional)</label><input type="text" id="cap-topic" placeholder="e.g. moving on from someone" maxlength="80"></div>
+      <div class="field"><label>Tone</label>
+        <select id="cap-tone">
+          <option>Attitude / Unbothered</option>
+          <option>Emotional / Soft</option>
+          <option>Motivational / Fire</option>
+          <option>Aesthetic / Poetic</option>
+          <option>Relatable / Funny</option>
+          <option>Sad / Deep</option>
+        </select>
+      </div>
+      <div class="field"><label>Language Mix</label>
+        <select id="cap-lang">
+          <option>Hinglish (Hindi + English)</option>
+          <option>Pure English</option>
+          <option>Pure Hindi</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-p btn-d" onclick="genCaption()">GENERATE CAPTION ↗</button>
+    <div class="out-box" id="cap-out" style="display:none;">
+      <div class="phdr"><span class="ptitle">YOUR CAPTION PACKAGE</span><button class="copybtn" onclick="copyOut('cap-body')">COPY ALL</button></div>
+      <div class="out-grid" id="cap-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: BEST TIME TOOL -->
+<div id="p-timing" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 60% 40%,rgba(56,189,248,.06) 0,transparent 55%)"></div>
+    <div class="htag">NICHE-SPECIFIC TIMING ENGINE</div>
+    <div class="htitle">BEST TIME<br><span class="hl" style="color:var(--a5);">TO UPLOAD</span></div>
+    <div class="hsub">Different content types peak at different times. For @bhxvfr's quote and emotional content — 9:00–11:00 PM IST is the prime window.</div>
+  </div>
+  <div class="phb">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
+      <div class="field" style="flex:1;min-width:180px;"><label>Content Category</label>
+        <select id="t-cat" onchange="renderHM()">
+          <option value="quote">Quote / Attitude Content</option>
+          <option value="relatable">Relatable / POV</option>
+          <option value="sad">Sad / Deep</option>
+          <option value="hustle">Motivational / Hustle</option>
+          <option value="aesthetic">Aesthetic / Mood</option>
+          <option value="finance">Finance / Investing</option>
+          <option value="fitness">Fitness / Health</option>
+          <option value="student">Student / Education</option>
+          <option value="food">Food / Cooking</option>
+          <option value="travel">Travel</option>
+        </select>
+      </div>
+      <div class="field" style="flex:1;min-width:180px;"><label>Platform</label>
+        <select id="t-plat" onchange="renderHM()">
+          <option>Instagram Reels</option>
+          <option>YouTube Shorts</option>
+        </select>
+      </div>
+    </div>
+    <div class="card cp" style="margin-bottom:16px;">
+      <div style="font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1.5px;margin-bottom:14px;">ENGAGEMENT HEATMAP — IST (24h) — DARKER = MORE ACTIVE</div>
+      <div id="hm-wrap" style="overflow-x:auto;"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <span style="font-size:11px;color:var(--mu);">Low</span>
+        <div style="display:flex;gap:2px;">
+          <div style="width:16px;height:10px;border-radius:2px;background:rgba(192,132,252,.08)"></div>
+          <div style="width:16px;height:10px;border-radius:2px;background:rgba(192,132,252,.22)"></div>
+          <div style="width:16px;height:10px;border-radius:2px;background:rgba(192,132,252,.42)"></div>
+          <div style="width:16px;height:10px;border-radius:2px;background:rgba(192,132,252,.65)"></div>
+          <div style="width:16px;height:10px;border-radius:2px;background:rgba(192,132,252,.9)"></div>
+        </div>
+        <span style="font-size:11px;color:var(--mu);">High</span>
+        <span style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-left:auto;">ALL TIMES IST</span>
+      </div>
+    </div>
+    <div id="t-reco" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:18px;"></div>
+    <div class="card cp cla cla-bx">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Why 9–11 PM IST is @bhxvfr's prime window</div>
+      <div style="font-size:13px;color:var(--mu2);line-height:1.75;">Quote and emotional content peaks during bedtime scroll — this is when people are most reflective. They're in their feelings, lying down, not distracted. A quote that hits at 10 PM gets saved, shared to stories, and DM'd to people. <strong style="color:var(--bx);">This is the single most important thing @bhxvfr can optimise.</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: REACH MAXIMISER -->
+<div id="p-reach" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 40% 50%,rgba(168,85,247,.06) 0,transparent 55%)"></div>
+    <div class="htag">NICHE GROWTH PLAYBOOK</div>
+    <div class="htitle">REACH<br><span class="hl" style="color:var(--a4);">MAXIMISER</span></div>
+    <div class="hsub">Specific strategies to reach more viewers. Select your content category to get the exact growth playbook for @bhxvfr.</div>
+  </div>
+  <div class="phb">
+    <div class="field" style="max-width:300px;margin-bottom:20px;"><label>Content Category</label>
+      <select id="r-cat" onchange="renderReach()">
+        <option value="">Choose category...</option>
+        <option value="quote">Quote / Attitude Content</option>
+        <option value="relatable">Relatable / Emotional / POV</option>
+        <option value="sad">Sad / Deep / Expressive</option>
+        <option value="hustle">Motivational / Hustle</option>
+        <option value="aesthetic">Aesthetic / Mood</option>
+        <option value="finance">Finance / Investing</option>
+        <option value="fitness">Fitness / Health</option>
+        <option value="student">Student / Education</option>
+        <option value="food">Food / Cooking</option>
+        <option value="travel">Travel</option>
+      </select>
+    </div>
+    <div id="r-out"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: SCRIPT GENERATOR -->
+<div id="p-scripts" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 30% 40%,rgba(255,77,28,.07) 0,transparent 55%)"></div>
+    <div class="htag">FULL REEL BUILDER</div>
+    <div class="htitle">SCRIPT<br><span class="hl">GENERATOR</span></div>
+    <div class="hsub">Pick niche + format. Get a complete reel script with hook, shot list, caption, hashtags and posting time.</div>
+  </div>
+  <div class="phb">
+    <div class="gf" style="margin-bottom:14px;">
+      <div class="field"><label>Niche</label>
+        <select id="sc-niche"><option value="">Select...</option><option>Quote / Attitude (bhxvfr)</option><option>Finance / Money</option><option>Fitness / Health</option><option>Student Life</option><option>Skincare / Beauty</option><option>Fashion / Style</option><option>Food / Cooking</option><option>Tech / Gadgets</option><option>Career / Jobs</option><option>Travel</option><option>Motivation</option></select>
+      </div>
+      <div class="field"><label>Format</label>
+        <select id="sc-format"><option value="">Select...</option><option>Quote Reel</option><option>Myth Buster</option><option>Before / After</option><option>3-Tip Speedrun</option><option>POV Storytelling</option><option>Day in My Life</option><option>GRWM</option></select>
+      </div>
+      <div class="field"><label>City (optional)</label>
+        <select id="sc-city"><option value="">All India</option><option>Mumbai</option><option>Delhi / NCR</option><option>Bangalore</option><option>Hyderabad</option><option>Kolkata</option><option>Siliguri / NE</option><option>Pune</option><option>Chennai</option></select>
+      </div>
+    </div>
+    <button class="btn btn-p btn-d" onclick="genScript()">GENERATE SCRIPT ↗</button>
+    <div class="out-box" id="sc-out" style="display:none;">
+      <div class="phdr"><span class="ptitle">YOUR VIRAL SCRIPT</span><button class="copybtn" onclick="copyOut('sc-body')">COPY ALL</button></div>
+      <div class="out-grid" id="sc-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: VIRALITY SCORER -->
+<div id="p-virality" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 40% 50%,rgba(255,204,0,.06) 0,transparent 55%)"></div>
+    <div class="htag">PRE-PUBLISH AUDIT</div>
+    <div class="htitle">VIRALITY<br><span class="hl" style="color:var(--a2);">SCORER</span></div>
+    <div class="hsub">Describe your reel idea. Get a predicted virality score and specific improvements before you shoot.</div>
+  </div>
+  <div class="phb">
+    <div class="gf" style="margin-bottom:14px;">
+      <div class="field fw"><label>Describe your reel idea</label>
+        <textarea id="v-idea" rows="3" placeholder="e.g. Quote reel with dark aesthetic background, slowed reverb audio, attitude quote about moving on from people who don't value you..."></textarea>
+      </div>
+      <div class="field"><label>Content category</label>
+        <select id="v-cat"><option>Quote / Attitude</option><option>Relatable / POV</option><option>Sad / Deep</option><option>Motivational</option><option>Aesthetic</option><option>Finance</option><option>Fitness</option><option>Student</option></select>
+      </div>
+      <div class="field"><label>Strong visual hook?</label>
+        <select id="v-hook"><option value="yes">Yes — first 3 sec is strong</option><option value="maybe">Not sure</option><option value="no">No hook yet</option></select>
+      </div>
+      <div class="field"><label>Trending audio planned?</label>
+        <select id="v-audio"><option value="yes">Yes</option><option value="no">No</option></select>
+      </div>
+      <div class="field"><label>India / desi angle?</label>
+        <select id="v-india"><option value="yes">Yes — desi angle included</option><option value="partial">Partially</option><option value="no">No</option></select>
+      </div>
+    </div>
+    <button class="btn btn-p btn-d" onclick="scoreV()">SCORE MY REEL ↗</button>
+    <div id="v-out" style="display:none;margin-top:20px;"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: ALGO MAP -->
+<div id="p-algo" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 50% 50%,rgba(255,77,28,.06) 0,transparent 55%)"></div>
+    <div class="htag">2026 INSTAGRAM ALGORITHM</div>
+    <div class="htitle">ALGORITHM<br><span class="hl">MAP</span></div>
+    <div class="hsub">What Instagram actually rewards in 2026. For quote content, saves and shares are @bhxvfr's #1 and #2 signals.</div>
+  </div>
+  <div class="phb">
+    <div class="card cp" style="margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:600;margin-bottom:16px;">Signal strength ranking</div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Watch time completion</div><div class="sb-t"><div class="sb-f" style="width:97%;background:var(--ac)"></div></div><div class="sb-p" style="color:var(--ac);font-weight:600;">97%</div></div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Saves</div><div class="sb-t"><div class="sb-f" style="width:90%;background:var(--a3)"></div></div><div class="sb-p" style="color:var(--a3);font-weight:600;">90%</div></div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Shares</div><div class="sb-t"><div class="sb-f" style="width:84%;background:var(--bx)"></div></div><div class="sb-p" style="color:var(--bx);font-weight:600;">84%</div></div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Replays / Loops</div><div class="sb-t"><div class="sb-f" style="width:78%;background:var(--a2)"></div></div><div class="sb-p" style="color:var(--a2);font-weight:600;">78%</div></div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Comments</div><div class="sb-t"><div class="sb-f" style="width:70%;background:var(--a5)"></div></div><div class="sb-p" style="color:var(--a5);font-weight:600;">70%</div></div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Likes</div><div class="sb-t"><div class="sb-f" style="width:45%;background:var(--mu)"></div></div><div class="sb-p">45%</div></div>
+      <div class="sb"><div class="sb-l" style="width:150px;">Hashtags alone</div><div class="sb-t"><div class="sb-f" style="width:18%;background:var(--mu)"></div></div><div class="sb-p">18%</div></div>
+    </div>
+    <div class="g2">
+      <div class="card cp cla cla-bx"><div style="font-size:14px;font-weight:600;margin-bottom:8px;">💾 Quote content = save machine</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">For @bhxvfr, saves are the #1 growth signal. Every quote reel should make someone think "I need to save this" — design for saves, not likes.</div></div>
+      <div class="card cp cla cla-re"><div style="font-size:14px;font-weight:600;margin-bottom:8px;">⏱️ First hour is critical</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Instagram evaluates your Reel heavily in the first 60 min. Post at 9 PM IST for quote content. Reply to every comment within 15 min of posting.</div></div>
+      <div class="card cp cla cla-gr"><div style="font-size:14px;font-weight:600;margin-bottom:8px;">🎵 Audio is emotional glue</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">For emotional quote content, the audio is 50% of the impact. Wrong audio kills a perfect quote. Jump on trending audio within 24–48 hours.</div></div>
+      <div class="card cp cla cla-ye"><div style="font-size:14px;font-weight:600;margin-bottom:8px;">🔁 Design for loops</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Quote reels naturally loop — people reread the text. Make your reel 7–15 seconds so it loops without friction. Each rewatch sends a strong signal.</div></div>
+      <div class="card cp cla cla-bx"><div style="font-size:14px;font-weight:600;margin-bottom:8px;">📝 Caption is now SEO</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">Instagram reads captions for keywords. For quote content keep captions SHORT — 1–2 lines + CTA. The quote IS the content, don't dilute with long captions.</div></div>
+      <div class="card cp cla cla-bl"><div style="font-size:14px;font-weight:600;margin-bottom:8px;"># Hashtag formula for @bhxvfr</div><div style="font-size:13px;color:var(--mu2);line-height:1.7;">#quotes #attitude #vibes #selflove #genz #instaquote #quotesofinstagram #desivibes #hinglishquotes — 8–12 focused tags beats 30 generic ones.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: SCHEDULE -->
+<div id="p-schedule" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 40% 40%,rgba(192,132,252,.06) 0,transparent 55%)"></div>
+    <div class="htag">@BHXVFR POSTING WINDOWS</div>
+    <div class="htitle">POSTING<br><span class="hl2">SCHEDULE</span></div>
+    <div class="hsub">Quote and emotional content peaks late at night. Here's the exact posting schedule for @bhxvfr content in India.</div>
+  </div>
+  <div class="phb">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;margin-bottom:16px;">
+      <div style="background:var(--s2);padding:18px 20px;">
+        <div style="font-family:var(--fd);font-size:38px;color:var(--mu);letter-spacing:2px;line-height:1;">08:00</div>
+        <div style="font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;margin:6px 0 8px;">MORNING WINDOW</div>
+        <div style="font-size:12px;color:var(--mu2);line-height:1.6;">Post motivational / hustle quotes for the morning crowd. "Working in silence. The noise comes after." type energy.</div>
+        <span style="display:inline-block;font-family:var(--fm);font-size:10px;background:rgba(255,255,255,.05);color:var(--mu);padding:2px 8px;border-radius:4px;margin-top:8px;">HUSTLE QUOTES ONLY</span>
+      </div>
+      <div style="background:var(--s2);padding:18px 20px;">
+        <div style="font-family:var(--fd);font-size:38px;color:var(--mu);letter-spacing:2px;line-height:1;">19:00</div>
+        <div style="font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;margin:6px 0 8px;">EVENING WINDOW</div>
+        <div style="font-size:12px;color:var(--mu2);line-height:1.6;">Post-work / post-college. Good for relatable and attitude content. Second-best window for @bhxvfr.</div>
+        <span style="display:inline-block;font-family:var(--fm);font-size:10px;background:rgba(255,255,255,.05);color:var(--mu);padding:2px 8px;border-radius:4px;margin-top:8px;">SECONDARY</span>
+      </div>
+      <div style="background:rgba(192,132,252,.05);border:1px solid rgba(192,132,252,.28);padding:18px 20px;">
+        <div style="font-family:var(--fd);font-size:38px;color:var(--bx);letter-spacing:2px;line-height:1;">21:00</div>
+        <div style="font-family:var(--fm);font-size:10px;color:var(--bx);letter-spacing:1.5px;text-transform:uppercase;margin:6px 0 8px;">PRIME TIME ← POST HERE</div>
+        <div style="font-size:12px;color:var(--mu2);line-height:1.6;">9:00–11:00 PM IST. Bedtime scroll = peak emotional receptivity. Sad, deep, and attitude quotes land hardest here.</div>
+        <span style="display:inline-block;font-family:var(--fm);font-size:10px;background:rgba(192,132,252,.2);color:var(--bx);padding:2px 8px;border-radius:4px;margin-top:8px;">@BHXVFR PRIME WINDOW</span>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="card cp cla cla-bx">
+        <div style="font-size:14px;font-weight:600;margin-bottom:12px;">📊 @bhxvfr posting frequency</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--bd);"><span style="font-size:13px;color:var(--mu2);">Minimum</span><span style="font-family:var(--fm);font-size:12px;">4 posts / week</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--bd);"><span style="font-size:13px;color:var(--mu2);">Optimal</span><span style="font-family:var(--fm);font-size:12px;color:var(--a3);">5–7 quote reels / week</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(192,132,252,.06);border-radius:7px;border:1px solid rgba(192,132,252,.2);"><span style="font-size:13px;">Growth mode</span><span style="font-family:var(--fm);font-size:12px;color:var(--bx);">1 quote reel daily × 30 days</span></div>
+        </div>
+      </div>
+      <div class="card cp cla cla-re">
+        <div style="font-size:14px;font-weight:600;margin-bottom:12px;">🎬 Content mix</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(192,132,252,.06);border-radius:7px;border:1px solid rgba(192,132,252,.2);"><span style="font-size:13px;">Quote / Attitude</span><span style="font-family:var(--fm);font-size:12px;color:var(--bx);">35% — anchor</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--bd);"><span style="font-size:13px;color:var(--mu2);">Relatable / POV</span><span style="font-family:var(--fm);font-size:12px;color:var(--ac);">25%</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--bd);"><span style="font-size:13px;color:var(--mu2);">Sad / Deep</span><span style="font-family:var(--fm);font-size:12px;color:var(--a5);">15%</span></div>
+          <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:7px;border:1px solid var(--bd);"><span style="font-size:13px;color:var(--mu2);">All others</span><span style="font-family:var(--fm);font-size:12px;color:var(--mu);">25% mixed</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card cp cla cla-bx">
+      <div style="font-size:14px;font-weight:600;margin-bottom:8px;">⚡ The 15-minute post rule for @bhxvfr</div>
+      <div style="font-size:13px;color:var(--mu2);line-height:1.7;">After posting at 9 PM: share to Stories immediately → reply to first 5–10 comments within 15 min → respond to DMs. Every save, share and comment in the first hour counts double for quote content. Pin your best comment to drive more engagement.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: CALENDAR -->
+<div id="p-calendar" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 40% 40%,rgba(0,229,160,.05) 0,transparent 55%)"></div>
+    <div class="htag">@BHXVFR 2-WEEK PLAN</div>
+    <div class="htitle">CONTENT<br><span class="hl" style="color:var(--a3);">CALENDAR</span></div>
+    <div class="hsub">Ready-to-use 2-week posting schedule tuned for @bhxvfr's 7 content categories and India's prime time.</div>
+  </div>
+  <div class="phb">
+    <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mu2);"><span style="width:10px;height:10px;background:rgba(192,132,252,.4);border-radius:2px;display:inline-block;"></span>Quote / Mood Reel</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mu2);"><span style="width:10px;height:10px;background:rgba(255,77,28,.4);border-radius:2px;display:inline-block;"></span>Relatable / Sad Reel</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mu2);"><span style="width:10px;height:10px;background:rgba(0,229,160,.3);border-radius:2px;display:inline-block;"></span>Story</span>
+    </div>
+    <div style="overflow-x:auto;">
+    <div class="cal" style="min-width:540px;">
+      <div class="cal-h"></div><div class="cal-h">MON</div><div class="cal-h">TUE</div><div class="cal-h">WED</div><div class="cal-h">THU</div><div class="cal-h">FRI</div><div class="cal-h">SAT</div><div class="cal-h">SUN</div>
+      <div class="cal-l">WK 1</div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-q">💬 Attitude quote</div><div class="cal-p cp-s">📖 Story share</div></div>
+      <div class="cal-c"><div class="cal-t">8 AM</div><div class="cal-p cp-q">🔥 Hustle quote</div></div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-r">🫀 Relatable POV</div><div class="cal-p cp-s">💡 Poll story</div></div>
+      <div class="cal-c"><div class="cal-t">—</div><div class="cal-p cp-s">🌑 Aesthetic story</div></div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-r">🌧️ Sad/deep quote</div></div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-q">💬 Attitude reel</div><div class="cal-p cp-s">🎵 Audio reel</div></div>
+      <div class="cal-c"><div class="cal-t">—</div><div class="cal-p cp-s">🔄 Repurpose best</div></div>
+      <div class="cal-l">WK 2</div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-q">🌑 Aesthetic mood</div></div>
+      <div class="cal-c"><div class="cal-t">8 AM</div><div class="cal-p cp-q">🔥 Dream/hustle</div><div class="cal-p cp-s">💬 Quote share</div></div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-r">🫀 POV relatable</div><div class="cal-p cp-s">🎵 Audio story</div></div>
+      <div class="cal-c"><div class="cal-t">—</div></div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-q">💬 Hinglish quote</div></div>
+      <div class="cal-c"><div class="cal-t">9 PM</div><div class="cal-p cp-r">🌧️ Emotional deep</div><div class="cal-p cp-s">📊 Poll story</div></div>
+      <div class="cal-c"><div class="cal-t">—</div></div>
+    </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;">
+      <div class="card cp" style="text-align:center;"><div class="mv" style="color:var(--bx);">5–7</div><div class="ml">posts per week target</div></div>
+      <div class="card cp" style="text-align:center;"><div class="mv" style="color:var(--ac);">FRI/SAT</div><div class="ml">highest emotional scroll days</div></div>
+      <div class="card cp" style="text-align:center;"><div class="mv" style="color:var(--a2);">9 PM</div><div class="ml">IST — @bhxvfr prime window</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: AUDIO -->
+<div id="p-audio" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 30% 40%,rgba(56,189,248,.06) 0,transparent 55%)"></div>
+    <div class="htag">SOUND STRATEGY FOR @BHXVFR</div>
+    <div class="htitle">TRENDING<br><span class="hl" style="color:var(--a5);">AUDIO</span></div>
+    <div class="hsub">For quote content, audio is 50% of emotional impact. These sounds are matched to @bhxvfr's 7 content categories.</div>
+  </div>
+  <div class="phb">
+    <div id="audio-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;"></div>
+    <div class="card cp cla cla-bl">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Audio strategy for @bhxvfr</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--mu2);line-height:1.6;">
+        <div><strong style="color:var(--tx);">Match audio emotion to quote emotion</strong> — A hustle quote with sad music confuses the viewer. Emotional alignment is non-negotiable.</div>
+        <div><strong style="color:var(--tx);">Slowed + reverb = emotional amplifier</strong> — For sad, deep and aesthetic content, slowed reverb versions massively amplify emotional response. This is @bhxvfr's signature sound territory.</div>
+        <div><strong style="color:var(--tx);">Jump on trending within 24–48 hours</strong> — The audio's virality gives your quote reel a free boost into new audience feeds.</div>
+        <div><strong style="color:var(--tx);">Build a signature sound identity</strong> — After testing 10+ sounds, identify 2–3 that consistently perform. Build a signature sound people associate with @bhxvfr.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ PAGE: TOOLKIT -->
+<div id="p-toolkit" class="page">
+  <div class="hero">
+    <div class="hbg" style="background:radial-gradient(ellipse at 50% 50%,rgba(192,132,252,.06) 0,transparent 55%)"></div>
+    <div class="htag">@BHXVFR POWER TOOLS</div>
+    <div class="htitle">CREATOR<br><span class="hl2">TOOLKIT</span></div>
+    <div class="hsub">Everything @bhxvfr needs to go from quote idea to viral reel. Quick tools, checklists and resources.</div>
+  </div>
+  <div class="phb">
+    <div class="rb" style="padding:0 0 12px;"><div class="sh2" style="font-size:26px;">QUICK TOOLS</div></div>
+    <div class="gf" style="margin-bottom:24px;">
+      <div class="tool-card" onclick="go('quotes',document.querySelector('[onclick*=quotes]'))"><div class="tool-icon">💬</div><div class="tool-name">Quote Generator</div><div class="tool-desc">Generate original Gen Z quotes by emotion and category</div></div>
+      <div class="tool-card" onclick="go('caption',document.querySelector('[onclick*=caption]'))"><div class="tool-icon">✍️</div><div class="tool-name">Caption Generator</div><div class="tool-desc">Full caption + hashtags + keywords in one click</div></div>
+      <div class="tool-card" onclick="go('timing',document.querySelector('[onclick*=timing]'))"><div class="tool-icon">⏰</div><div class="tool-name">Best Time Tool</div><div class="tool-desc">When to post for each content category</div></div>
+      <div class="tool-card" onclick="go('reach',document.querySelector('[onclick*=reach]'))"><div class="tool-icon">📡</div><div class="tool-name">Reach Maximiser</div><div class="tool-desc">Category-specific growth playbook</div></div>
+      <div class="tool-card" onclick="go('virality',document.querySelector('[onclick*=virality]'))"><div class="tool-icon">📊</div><div class="tool-name">Virality Scorer</div><div class="tool-desc">Pre-publish audit — score your idea before shooting</div></div>
+      <div class="tool-card" onclick="go('hooks',document.querySelector('[onclick*=hooks]'))"><div class="tool-icon">🪝</div><div class="tool-name">Hook Builder</div><div class="tool-desc">Quote hooks with live phone preview + scores</div></div>
+      <div class="tool-card" onclick="go('hinglish',document.querySelector('[onclick*=hinglish]'))"><div class="tool-icon">🇮🇳</div><div class="tool-name">Hinglish Live</div><div class="tool-desc">Auto-refreshing trending Hinglish phrases</div></div>
+      <div class="tool-card" onclick="go('audio',document.querySelector('[onclick*=audio]'))"><div class="tool-icon">🎵</div><div class="tool-name">Trending Audio</div><div class="tool-desc">Sounds matched to @bhxvfr content categories</div></div>
+    </div>
+    <div class="rb" style="padding:0 0 12px;"><div class="sh2" style="font-size:26px;">PRE-PUBLISH CHECKLIST</div></div>
+    <div class="card" style="overflow:hidden;margin-bottom:20px;" id="ck-wrap"></div>
+    <div class="rb" style="padding:0 0 12px;"><div class="sh2" style="font-size:26px;">QUOTE REEL LENGTH GUIDE</div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;">
+      <div style="background:var(--s1);padding:16px 18px;"><div style="font-family:var(--fd);font-size:28px;color:var(--bx);letter-spacing:1px;">7–12s</div><div style="font-size:13px;font-weight:500;margin-top:4px;">Single quote reel</div><div style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-top:4px;">Primary: Loops + Saves</div></div>
+      <div style="background:var(--s1);padding:16px 18px;"><div style="font-family:var(--fd);font-size:28px;color:var(--ac);letter-spacing:1px;">15–25s</div><div style="font-size:13px;font-weight:500;margin-top:4px;">3-quote speedrun</div><div style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-top:4px;">Primary: Saves</div></div>
+      <div style="background:var(--s1);padding:16px 18px;"><div style="font-family:var(--fd);font-size:28px;color:var(--a5);letter-spacing:1px;">15–30s</div><div style="font-size:13px;font-weight:500;margin-top:4px;">POV + quote reel</div><div style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-top:4px;">Primary: Shares</div></div>
+      <div style="background:var(--s1);padding:16px 18px;"><div style="font-family:var(--fd);font-size:28px;color:var(--a2);letter-spacing:1px;">30–60s</div><div style="font-size:13px;font-weight:500;margin-top:4px;">Talking head</div><div style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-top:4px;">Primary: Watch time</div></div>
+      <div style="background:var(--s1);padding:16px 18px;"><div style="font-family:var(--fd);font-size:28px;color:var(--a3);letter-spacing:1px;">45–90s</div><div style="font-size:13px;font-weight:500;margin-top:4px;">Aesthetic mood</div><div style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-top:4px;">Primary: Watch time</div></div>
+      <div style="background:var(--s1);padding:16px 18px;"><div style="font-family:var(--fd);font-size:28px;color:var(--mu2);letter-spacing:1px;">7–15s</div><div style="font-size:13px;font-weight:500;margin-top:4px;">Trending audio reel</div><div style="font-family:var(--fm);font-size:10px;color:var(--mu);margin-top:4px;">Primary: Discovery</div></div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ══ DATA ══════════════════════════════════════════════════════════════════
+const QUOTES = {
+  attitude:[
+    {q:"Not everyone who leaves was lost. Some just outgrew the place.",a:"ATTITUDE"},
+    {q:"Soft heart. Silent revenge. Watch me.",a:"ATTITUDE"},
+    {q:"Main khud hi bahut hun — kisi aur ki zaroorat nahi.",a:"ATTITUDE"},
+    {q:"They didn't break me. They built me.",a:"ATTITUDE"},
+    {q:"The moment I stopped explaining myself, I started becoming myself.",a:"ATTITUDE"},
+    {q:"I don't burn bridges. I just stop crossing them.",a:"ATTITUDE"},
+    {q:"My energy is a privilege. Not everyone gets access.",a:"ATTITUDE"},
+    {q:"I'm not hard to love. Some people are just incapable of it.",a:"ATTITUDE"},
+    {q:"Quiet confidence hits different than loud desperation.",a:"ATTITUDE"},
+    {q:"I stopped shrinking to fit rooms I've outgrown.",a:"ATTITUDE"},
+    {q:"Main woh nahi jo tumhare kehne se badal jaye.",a:"ATTITUDE"},
+    {q:"Choose peace over being right. Every single time.",a:"ATTITUDE"},
+  ],
+  relatable:[
+    {q:"I smile in public and fall apart when the song hits.",a:"RELATABLE"},
+    {q:"POV: You finally stop crying and then someone asks if you're okay.",a:"RELATABLE"},
+    {q:"I reply to everyone except the one I actually want to talk to.",a:"RELATABLE"},
+    {q:"Sometimes I'm not sad. I'm just tired of pretending I'm fine.",a:"RELATABLE"},
+    {q:"I overthink in three languages — Hindi, English, and feelings.",a:"RELATABLE"},
+    {q:"Main haan bol deta hun but andar se no hota hai.",a:"RELATABLE"},
+    {q:"You ever just stare at the ceiling at 2 AM and feel everything at once?",a:"RELATABLE"},
+    {q:"I'm fine is just shorthand for I'll explain when I understand it myself.",a:"RELATABLE"},
+    {q:"Some wounds don't ask for medicine. They ask for music.",a:"RELATABLE"},
+    {q:"I keep my feelings in drafts. Never posted.",a:"RELATABLE"},
+  ],
+  sad:[
+    {q:"I don't miss you. I miss who I was when I was with you.",a:"SAD"},
+    {q:"The worst part isn't losing you. It's losing who I was for you.",a:"SAD"},
+    {q:"Some people leave without an explanation. That's the part that stays.",a:"SAD"},
+    {q:"I'm not okay but I've gotten really good at pretending.",a:"SAD"},
+    {q:"Main theek hun. Woh words hai, feeling nahi.",a:"SAD"},
+    {q:"You can be surrounded by people and still feel invisible.",a:"SAD"},
+    {q:"The scariest thing about healing is you can no longer use the pain as an excuse.",a:"SAD"},
+    {q:"We outgrow people the same way we outgrow clothes. Silently, with a little guilt.",a:"SAD"},
+    {q:"Kuch dard aisa hota hai jise naam dena mushkil hai.",a:"SAD"},
+    {q:"Sometimes I listen to old songs just to feel things I've learned to suppress.",a:"SAD"},
+  ],
+  hustle:[
+    {q:"Working in silence. The noise comes after.",a:"HUSTLE"},
+    {q:"One day they'll ask what my secret was. I'll say: I just didn't stop.",a:"HUSTLE"},
+    {q:"Prove them wrong quietly. Then let the results speak loudly.",a:"HUSTLE"},
+    {q:"The version of me I'm becoming scares the version I used to be.",a:"HUSTLE"},
+    {q:"Mehnat karo. Chhupa ke. Surprise de do.",a:"HUSTLE"},
+    {q:"Your future self is watching you make decisions right now.",a:"HUSTLE"},
+    {q:"I'm not competing with anyone. I'm trying to become someone I'm proud of.",a:"HUSTLE"},
+    {q:"The people who didn't believe in you are still watching. Keep going.",a:"HUSTLE"},
+    {q:"Some mornings you don't feel it. You do it anyway. That's the difference.",a:"HUSTLE"},
+    {q:"Log kal dekhenge. Main aaj karta hun.",a:"HUSTLE"},
+  ],
+  aesthetic:[
+    {q:"Some feelings don't have words. They have weather.",a:"AESTHETIC"},
+    {q:"I collect moments, not things.",a:"AESTHETIC"},
+    {q:"There's a kind of silence that feels like home.",a:"AESTHETIC"},
+    {q:"I exist in the space between songs.",a:"AESTHETIC"},
+    {q:"Kuch cheezein hoti hain jo sirf feel ki ja sakti hain, samjhi nahi.",a:"AESTHETIC"},
+    {q:"I am the result of every quiet night I survived.",a:"AESTHETIC"},
+    {q:"Some people are whole libraries. Read them slowly.",a:"AESTHETIC"},
+    {q:"The moon doesn't apologize for being full.",a:"AESTHETIC"},
+    {q:"Soft on the outside. Storm on the inside.",a:"AESTHETIC"},
+    {q:"I'm not lost. I'm just not where you expected me to be.",a:"AESTHETIC"},
+  ],
+  healing:[
+    {q:"Healing isn't linear. Some days you go backwards. That's still forward.",a:"HEALING"},
+    {q:"You don't have to be okay right now. You just have to be.",a:"HEALING"},
+    {q:"Take up space. You were not made to shrink.",a:"HEALING"},
+    {q:"Sometimes the bravest thing you do is try again.",a:"HEALING"},
+    {q:"Apna khayal rakhna — yeh selfishness nahi, zaroorat hai.",a:"HEALING"},
+    {q:"Let people go without making yourself wrong for loving them.",a:"HEALING"},
+    {q:"Your softness is not weakness. It took strength to stay soft after everything.",a:"HEALING"},
+    {q:"Rest is not giving up. Rest is gathering strength for the next chapter.",a:"HEALING"},
+    {q:"You don't have to explain your pain to the people who caused it.",a:"HEALING"},
+    {q:"Slowly, things are getting better. Even if you can't feel it yet.",a:"HEALING"},
+  ],
+  hinglish:[
+    {q:"Log kya sochenge — yeh sawaal chhod do. Khud kya chahte ho — yeh socho.",a:"HINGLISH"},
+    {q:"Main badal gaya hun. Tum wahi reh gaye. Aur yeh theek hai.",a:"HINGLISH"},
+    {q:"Apni duniya mein mast hun. Invitation-only hai.",a:"HINGLISH"},
+    {q:"Dil se bura lagta hai, dimaag se samajh aata hai. Dono sahi hain.",a:"HINGLISH"},
+    {q:"Kuch cheezein explain nahi hoti — bas feel hoti hain.",a:"HINGLISH"},
+    {q:"Teri baat karne ki aadat hai. Teri zaroorat nahi.",a:"HINGLISH"},
+    {q:"Duniya se door hun, khud se qareeb hun.",a:"HINGLISH"},
+    {q:"Jo sahi hai woh easy nahi hota. Jo easy hai woh sahi nahi hota.",a:"HINGLISH"},
+    {q:"Main woh nahi hun jo tum sochte ho — aur yeh meri sabse badi khushi hai.",a:"HINGLISH"},
+    {q:"Khud ko time do. Sab theek ho jaata hai.",a:"HINGLISH"},
+  ]
+};
+
+const QCAPS = {
+  attitude:{cap:"Some things don't need explanation.\nThey just need space to exist.\n\n•\n\nTag someone who needs this energy 💜\nSave this 🔖",hash:"#attitude #quotes #selflove #vibes #genz #instaquote #quotesofinstagram #attitudequotes #selfrespect #unbothered #mindset #desivibes",audio:"Slowed + reverb ballad, dark piano lo-fi, or ambient electronic"},
+  relatable:{cap:"If you felt this, you're not alone.\n\n•\n\nTag someone who gets it 💜\nSave this — someone needs it 🔖",hash:"#relatable #feelings #genz #quotes #vibes #emotional #mood #relatablecontent #instamood #desivibes #hinglish",audio:"Sad lo-fi, slowed Hindi song, emotional piano, or soft ambient"},
+  sad:{cap:"Some feelings are better left as quotes.\n\n•\n\nDM me if you need someone to talk to 💜\nSave this for when it hits 🔖",hash:"#sadquotes #deepthoughts #feelings #emotional #quotes #vibes #sadvibes #nightthoughts #introspective #genz #desivibes",audio:"Slowed reverb, rain + piano ambient, soft sad Bollywood slowed"},
+  hustle:{cap:"This is your sign to keep going.\n\n•\n\nTag someone who needs this fire 🔥\nSave this for the hard days 🔖",hash:"#motivation #hustle #grindset #quotes #mindset #success #genz #goals #selfdevelopment #dreamchaser #desivibes",audio:"Energetic lo-fi, rising cinematic music, motivational beat"},
+  aesthetic:{cap:"Some things are felt, not explained.\n\n•\n\n✦ @bhxvfr\nSave + share 🔖",hash:"#aesthetic #moodboard #vibes #quotes #darkacademia #maincharacter #softlife #genz #aestheticquotes #mood #desivibes",audio:"Ambient, lo-fi piano, nature + soft music, slowed indie"},
+  healing:{cap:"Give yourself the grace you give everyone else.\n\n•\n\nYou're doing better than you think 💜\nSave this — you'll need it someday 🔖",hash:"#healing #selfcare #mentalhealth #quotes #selflove #genz #growthjourney #emotionalhealth #innerpeace #desivibes",audio:"Soft acoustic, healing frequencies, warm lo-fi, gentle piano"},
+  trending:{cap:"This one hit different.\n\n•\n\nTag someone 💜 Save this 🔖",hash:"#quotes #trending #vibes #genz #viral #reels #mood #instaquotes #desivibes #relatable",audio:"Use currently trending audio — check Reels audio tab right now"},
+  advice:{cap:"Just my honest take.\n\n•\n\nAgree? Drop a comment 👇\nFollow @bhxvfr for more real talk",hash:"#opinion #realness #genz #advice #quotes #perspective #mindset #honest #desivibes",audio:"Ambient lo-fi, subtle background music, or spoken word style"},
+};
+
+const HINGLISH = [
+  {p:"Villain arc shuru ho gayi",m:"My villain era has begun — attitude shift",sp:"+3,200%",n:"Attitude / Motivation",e:"😈"},
+  {p:"Main khud hi bahut hun",m:"I am enough on my own — self-sufficiency",sp:"+2,800%",n:"Self-love / Attitude",e:"✦"},
+  {p:"Kisi ne bataya nahi mujhe",m:"Nobody told me this — discovery / relatable",sp:"+2,400%",n:"Relatable / Education",e:"🤯"},
+  {p:"Dil se bura lagta hai",m:"It genuinely hurts — emotional honesty",sp:"+1,900%",n:"Sad / Emotional",e:"💔"},
+  {p:"Seedha kaam ki baat",m:"Let's talk straight — no-nonsense attitude",sp:"+1,700%",n:"Attitude / Finance",e:"🎯"},
+  {p:"Apun ko toh pata tha",m:"I knew it all along — confident / smug",sp:"+2,300%",n:"Comedy / Attitude",e:"😏"},
+  {p:"Jo sahi hai woh easy nahi hota",m:"What's right isn't easy — wisdom",sp:"+1,500%",n:"Motivation / Healing",e:"💡"},
+  {p:"Real talk karte hain",m:"Let's have a real conversation",sp:"+1,890%",n:"Opinion / Advice",e:"💬"},
+  {p:"Teri zaroorat nahi",m:"I don't need you — independence / attitude",sp:"+2,100%",n:"Attitude / Self-love",e:"🚫"},
+  {p:"Khud se qareeb hun",m:"I'm close to myself — inner peace",sp:"+1,300%",n:"Healing / Aesthetic",e:"🌙"},
+  {p:"Pehle kyo nahi bataya yaar",m:"Why didn't you tell me earlier — relatable",sp:"+2,700%",n:"Relatable / Education",e:"🤦"},
+  {p:"Aur rona mat",m:"And don't cry (ironic) — relatable/sad",sp:"+980%",n:"Sad / Comedy",e:"😭"},
+];
+
+const TIMING = {
+  quote:    [1,1,1,1,1,1,1,2,3,3,2,2,2,2,2,3,4,5,6,7,8,9,10,8],
+  relatable:[1,1,1,1,1,1,1,2,3,3,3,3,3,3,3,4,5,6,7,8,8,10,9,7],
+  sad:      [1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,4,5,6,7,9,10,10,8],
+  hustle:   [1,1,1,1,1,2,5,9,8,7,5,4,4,4,4,5,6,7,8,9,10,8,5,2],
+  aesthetic:[1,1,1,1,1,1,1,2,3,3,3,3,3,3,3,4,5,6,7,8,9,10,9,7],
+  finance:  [1,1,1,1,1,1,2,5,8,6,5,4,3,4,4,3,3,4,5,8,9,10,7,3],
+  fitness:  [1,1,1,1,1,1,4,9,8,5,4,3,4,6,5,4,5,6,8,9,10,8,5,2],
+  student:  [1,1,1,1,1,2,3,4,5,5,4,4,3,3,3,4,5,6,8,9,10,9,7,3],
+  food:     [1,1,1,1,1,1,2,3,4,5,5,7,9,8,6,5,5,6,8,10,9,7,5,2],
+  travel:   [1,1,1,1,1,1,2,3,4,4,5,5,5,5,5,5,6,7,9,10,9,8,6,3],
+};
+
+const TPEAKS = {
+  quote:[{t:"9:00–11:00 PM",l:"Bedtime scroll ← PRIME",tip:"Peak emotional receptivity — viewers in reflective state, save-heavy"},{t:"7:00–9:00 PM",l:"Evening window",tip:"Post-work emotional unwind — good for attitude and relatable"},{t:"12:00–1:00 AM",l:"Late night scroll",tip:"Deep emotional state — sad and healing quotes land hardest here"}],
+  relatable:[{t:"9:00–11:00 PM",l:"Night feels ← PRIME",tip:"Highest emotional resonance window for relatable content"},{t:"7:00–8:30 PM",l:"Evening wind-down",tip:"Post-day reflection mood"},{t:"12:00 AM+",l:"Late night",tip:"Overthinking hours — maximum relatability"}],
+  sad:[{t:"9:30–11:30 PM",l:"Deep night ← PRIME",tip:"Sad content lands hardest in the bedtime emotional window"},{t:"12:00–2:00 AM",l:"Late night feels",tip:"Insomnia scroll — highest emotional vulnerability"},{t:"7:00–8:00 PM",l:"Evening reflection",tip:"End-of-day processing mood"}],
+  hustle:[{t:"7:00–8:00 AM",l:"Morning pump ← PRIME",tip:"Pre-work motivation seekers — highest save rate for hustle content"},{t:"8:00–9:00 PM",l:"Evening reflect",tip:"Post-work mindset reset and goal planning"},{t:"5:00–6:00 PM",l:"Post-work slump",tip:"End-of-day boost — people need fire quotes"}],
+  aesthetic:[{t:"9:00–11:00 PM",l:"Night mood ← PRIME",tip:"Aesthetic content consumed in reflective nighttime state"},{t:"7:00–9:00 PM",l:"Evening browse",tip:"Post-dinner aesthetic scrolling"},{t:"2:00–4:00 PM",l:"Afternoon",tip:"Weekend afternoon aesthetic consumption"}],
+  finance:[{t:"8:00–9:00 AM",l:"Commute ← PRIME",tip:"Morning financial research during commute"},{t:"7:00–9:00 PM",l:"Evening deep dive",tip:"Post-work financial planning mode"},{t:"9:00–10:00 PM",l:"Late peak",tip:"Bedtime financial anxiety scroll"}],
+  fitness:[{t:"7:00–8:00 AM",l:"Pre-workout ← PRIME",tip:"Morning fitness crowd sets intentions"},{t:"7:30–9:00 PM",l:"Post-workout",tip:"Gym-goers review performance"},{t:"12:30–1:30 PM",l:"Lunch motivation",tip:"Office lunch break fitness tips"}],
+  student:[{t:"8:00–9:00 PM",l:"Evening grind ← PRIME",tip:"Post-college study session begins"},{t:"9:00–10:00 PM",l:"Peak study",tip:"Board prep crowd most active"},{t:"11:00 AM–12:00 PM",l:"Lunch break",tip:"Between classes scroll"}],
+  food:[{t:"12:00–1:30 PM",l:"Lunch peak ← PRIME",tip:"Lunch hunger = peak food content engagement"},{t:"7:00–8:30 PM",l:"Dinner planning",tip:"What to cook tonight"},{t:"4:00–5:00 PM",l:"Snack o'clock",tip:"Afternoon craving scrolling"}],
+  travel:[{t:"8:00–9:30 PM",l:"Dream browsing ← PRIME",tip:"Evening travel daydreaming"},{t:"2:00–4:00 PM",l:"Weekend planning",tip:"Weekend trip research"},{t:"9:00–10:30 PM",l:"Late wander",tip:"Bedtime wanderlust scrolling"}],
+};
+
+const REACH = {
+  quote:{h:"Quote content creators grow 4× faster with these tactics",t:[
+    {i:"💾",t:"Design every quote for saves",d:"The single most important metric. Ask: would someone screenshot this to their notes app? If no, rewrite the quote. Saves tell the algorithm to push your content further.",s:"4× reach"},
+    {i:"🎵",t:"Audio-emotion alignment is non-negotiable",d:"Slowed reverb for sad/aesthetic quotes. Energetic beats for motivation. Ambient for healing. The wrong audio undermines a perfect quote — they must be emotionally aligned.",s:"Critical"},
+    {i:"🌑",t:"Consistent dark aesthetic locks followers",d:"Followers subscribe to a feeling, not a person. Maintain your visual identity — same font style, same colour palette, same aesthetic. Recognition builds loyalty.",s:"Brand ID"},
+    {i:"📤",t:'End with "tag someone who needs this"',d:"This CTA turns your audience into your distribution. Relatable quote content is inherently tagging content — make it explicit. Increases share rate by 2–3×.",s:"2–3× shares"},
+    {i:"#️⃣",t:"Quote-specific hashtag stack",d:"#quotes #attitude #vibes #selflove #genz #quotesofinstagram #instaquotes #desivibes #hinglishquotes — actively searched by quote content consumers.",s:"Top tags"},
+  ]},
+  relatable:{h:"Relatable content drives the highest share rates on the platform",t:[
+    {i:"🎯",t:"Be hyper-specific, not general",d:'"POV: You smile when friends are around but fall apart when the song hits at night" hits harder than "feeling sad sometimes." Specificity creates the "that\'s literally me" moment.',s:"5× shares"},
+    {i:"🕐",t:"Post at 9–11 PM IST always",d:"Relatable content lands at night when people are in their feelings. Morning posts underperform by 60% compared to the night window for relatable content.",s:"Night window"},
+    {i:"💬",t:"Comment bait is your best friend",d:'End every relatable reel with "agree?" or "who else?" — relatable content generates the highest comment-to-view ratio of any content type.',s:"Highest comments"},
+    {i:"🌐",t:"Hinglish doubles resonance",d:'Mixing Hindi emotional words with English creates resonance across all Indian Gen Z. "Dil se bura lagta hai but main theek hun" hits universally.',s:"2× India reach"},
+    {i:"#️⃣",t:"Relatable hashtag stack",d:"#relatable #genz #feelings #mood #pov #emotional #quotes #vibes #relatablecontent #instamood #desivibes",s:"Top tags"},
+  ]},
+  sad:{h:"Sad/deep content gets the most saves of any content format",t:[
+    {i:"💔",t:"Name unspoken feelings precisely",d:'The magic is naming the feeling people didn\'t know they could name. "I don\'t miss you. I miss who I was with you." — this precision drives saves like nothing else.',s:"Highest saves"},
+    {i:"🌙",t:"Late night window is everything",d:"Sad content posted at 9:30–11:30 PM IST gets 3× more saves than the same content posted in the morning. Emotion and time of day are deeply linked.",s:"3× saves"},
+    {i:"🎵",t:"Slowed reverb is your signature sound",d:"For sad and deep content, slowed reverb versions of emotional songs amplify the emotional impact by 5×. This is non-negotiable for sad content.",s:"5× emotional"},
+    {i:"💬",t:"DM CTA builds loyal community",d:'"DM me if you need someone to talk to" — this small addition turns sad content into community. These DMs build your most loyal followers.',s:"Community"},
+    {i:"#️⃣",t:"Sad content hashtag stack",d:"#sadquotes #deepthoughts #feelings #emotional #nightthoughts #quotes #sadvibes #introspective #genz #desivibes",s:"Top tags"},
+  ]},
+  hustle:{h:"Motivational content drives the highest share rates",t:[
+    {i:"🔥",t:"Morning posting is essential",d:"Motivational content posted at 7–8 AM IST gets 4× more saves than evening posts. People save morning motivation to revisit throughout the day.",s:"4× saves"},
+    {i:"🎯",t:"Specific beats vague by 12×",d:'"3 habits I started at 22 that changed everything by 25" hits harder than "be motivated". Specific age + specific action = hyper-relatable hustle content.',s:"12× better"},
+    {i:"💡",t:"Indian success stories resonate",d:"Use Indian references — small-city success stories, first-generation achievers. Indian Gen Z responds to Indian hustle narratives more than generic Western content.",s:"India-specific"},
+    {i:"🌑",t:"Aesthetic matters for hustle quotes",d:"Dark backgrounds + bold white text + minimal music = premium hustle energy. This aesthetic makes the quote look more authoritative and trustworthy.",s:"Premium feel"},
+    {i:"#️⃣",t:"Hustle hashtag stack",d:"#motivation #hustle #grindset #quotes #mindset #success #genz #goals #selfdevelopment #dreamchaser #desivibes",s:"Top tags"},
+  ]},
+  aesthetic:{h:"Aesthetic reels build the most loyal long-term community",t:[
+    {i:"🌑",t:"Consistency is your brand",d:"Post in the same visual style every time. Same dark/light palette, same font energy, same colour story. When someone sees your reel without reading the handle, they know it's you.",s:"Brand recognition"},
+    {i:"🎵",t:"Audio IS your aesthetic",d:"For aesthetic content, audio is 50% of the visual experience. Build a signature sound identity — 2–3 audio types that become associated with your aesthetic.",s:"Signature sound"},
+    {i:"📸",t:"Footage quality matters",d:"Unlike quote content where text is the hero, aesthetic reels depend on visual quality. 4K, good lighting, and thoughtful composition are non-negotiable.",s:"Visual standard"},
+    {i:"🌙",t:"Night posting = peak aesthetic consumption",d:"Aesthetic content is consumed in a meditative state — usually late evening. 9–10 PM IST is your best window.",s:"Night window"},
+    {i:"#️⃣",t:"Aesthetic hashtag stack",d:"#aesthetic #moodboard #vibes #darkacademia #maincharacter #softlife #aestheticreels #mood #genz #desivibes",s:"Top tags"},
+  ]},
+  finance:{h:"Finance creators reach high-intent Indian demographics",t:[
+    {i:"💰",t:"₹ price anchoring in every hook",d:"Start every reel with a specific rupee amount. '₹100 SIP mein ₹12 lakh in 20 years?' gets 4× more first-3-second retention than generic finance advice.",s:"4× retention"},
+    {i:"📱",t:"Real screenshots drive trust",d:"Show your actual Zerodha/Groww portfolio (blur sensitive info). Authenticity from real data builds trust and triggers saves at 3× the normal rate.",s:"3× saves"},
+    {i:"🎯",t:"Target by life stage",d:"'Finance for first-job earners in India' outperforms 'Finance tips' by 8× in CTR. Specific audience = algorithm matches you to the right viewers.",s:"8× CTR"},
+    {i:"🏦",t:"News hooks drive urgency",d:"RBI announcements, budget changes, new scheme launches — jump within 2 hours. Finance news creates organic urgency that drives massive shares.",s:"2-hour window"},
+    {i:"#️⃣",t:"Finance hashtag stack",d:"#financeIndia #SIPinvesting #moneytips #investing #personalfinance #growmoney #rupees #mutualfunds #zerodha",s:"Top tags"},
+  ]},
+  fitness:{h:"Fitness creators get 3× more followers with transformation content",t:[
+    {i:"💪",t:"30-day challenge format",d:"'Day 1 vs Day 30' drives the highest follow rate among all fitness formats. Viewers subscribe to see the journey continue.",s:"#1 follow driver"},
+    {i:"🌅",t:"6:30–8:00 AM posting",d:"Fitness content consumed before workouts converts 2.8× better in morning slots.",s:"2.8× conversion"},
+    {i:"🍽️",t:"Combine fitness + Indian food",d:"'Fitness for Indian diet — dal, roti, rice context' resonates massively. Western-food-based fitness advice underperforms by 60% with Indian audience.",s:"60% better"},
+    {i:"🇮🇳",t:"Indian body type inclusivity",d:"Content specifically addressing Indian/South Asian fitness consistently outperforms colour-neutral content.",s:"4× discoverability"},
+    {i:"#️⃣",t:"Fitness hashtag stack",d:"#fitnessindia #homeworkout #workout #healthyindian #gymindia #fitnessreels #workoutmotivation",s:"Top tags"},
+  ]},
+  student:{h:"Student creators build the most loyal Indian followings",t:[
+    {i:"📚",t:"Exam-specific content wins",d:"'CA Final prep tips', 'UPSC mains strategy', 'JEE revision hacks' — hyper-specific exam content builds the most loyal niche following.",s:"Daily return viewers"},
+    {i:"⏰",t:"8–10 PM IST always",d:"Students are most active after dinner/evening study sessions. 3.4× more engagement than morning posts during exam season.",s:"3.4× engagement"},
+    {i:"📱",t:"Study-with-me = massive watch time",d:"Live study sessions with Pomodoro timers generate extreme watch time signals — the strongest algorithm signal possible.",s:"Max watch time"},
+    {i:"🏆",t:"Rank reveal / result reels",d:"'I cleared UPSC in 1st attempt — here's what I did different' gets the highest share rate of any student content.",s:"Highest share rate"},
+    {i:"#️⃣",t:"Student hashtag stack",d:"#studygram #studymotivation #CAindia #UPSCprep #JEE2026 #studywithme #studentlife #examprep",s:"Top tags"},
+  ]},
+  food:{h:"Food creators reach peak engagement during meal windows",t:[
+    {i:"🍛",t:"Regional Indian cuisines",d:"Bengali, Punjabi, South Indian — regional specialties get massive sharing from diaspora. 'Authentic [state] recipe' outperforms 'Indian food' by 4×.",s:"4× shares"},
+    {i:"⏰",t:"Post 30 min before meals",d:"Post food content at 11:30 AM and 7:00 PM — 30 minutes before peak hunger. Save rate increases by 2.6×.",s:"2.6× saves"},
+    {i:"💰",t:"Budget meal content crushes",d:"'₹100 meals for the week' — budget cooking in India is massively underserved. 5× more shares than premium food content.",s:"5× shares"},
+    {i:"🥗",t:"5-minute Indian hacks",d:"'Quick breakfast in 3 minutes' — speed-cooking adds 3× more saves to standard recipe reels.",s:"3× saves"},
+    {i:"#️⃣",t:"Food hashtag stack",d:"#indianfood #recipereels #quickrecipes #homemadeindian #foodie #kitchenhacks #indianrecipes #budgetcooking",s:"Top tags"},
+  ]},
+  travel:{h:"Travel creators dominate with authentic India-first content",t:[
+    {i:"🏔️",t:"Hidden India gems",d:"'Places in India that look like abroad' — discovery content for lesser-known destinations drives the highest shares.",s:"#1 share driver"},
+    {i:"💸",t:"Budget travel in INR",d:"'₹5000 trip to Meghalaya', '3-day Goa under ₹8000' — specific budget + destination = viral combo.",s:"Viral combo"},
+    {i:"🚂",t:"Indian transport hacks",d:"Train booking hacks, Tatkal tips, IRCTC tricks — massively underserved. 5× the saves of standard travel content.",s:"5× saves"},
+    {i:"🌈",t:"Northeast + Tier-2 cities",d:"Sikkim, Meghalaya, Siliguri, Coorg — lower creator competition. First-mover advantage is huge here.",s:"Low competition"},
+    {i:"#️⃣",t:"Travel hashtag stack",d:"#incredibleindia #indiatravel #budgettravel #hiddengemsindia #travelreels #explorenortheast",s:"Top tags"},
+  ]},
+};
+
+const AUDIO_DATA = [
+  {t:"Flowers (slowed + reverb)",ar:"Miley Cyrus",u:"Attitude + healing quotes",c:"attitude/healing",h:97,g:"Pop slowed"},
+  {t:"Tum Se Hi (lo-fi piano)",ar:"Mohit Chauhan remix",u:"Sad, deep, aesthetic content",c:"sad/aesthetic",h:95,g:"Bollywood lo-fi"},
+  {t:"escapism. (sped up reverb)",ar:"raye",u:"Villain arc, GRWM, attitude reels",c:"attitude",h:91,g:"Pop"},
+  {t:"Aaj Ki Raat (piano cover)",ar:"Don 2 instrumental",u:"Late night aesthetic and deep quotes",c:"aesthetic/sad",h:88,g:"Bollywood instrumental"},
+  {t:"Calm lo-fi piano ambient",ar:"Various lo-fi accounts",u:"Healing, self-love, motivational quotes",c:"healing/hustle",h:85,g:"Ambient lo-fi"},
+  {t:"Chaleya (slowed)",ar:"Arijit Singh",u:"Relatable, emotional, sad content",c:"sad/relatable",h:93,g:"Bollywood slowed"},
+  {t:"APT. (slowed + reverb)",ar:"Bad Bunny x Rosé",u:"Aesthetic, fashion, villain arc",c:"aesthetic/attitude",h:88,g:"K-Pop slowed"},
+  {t:"Dark piano ambient",ar:"Lo-fi creators",u:"Deep night thought quotes, sad/existential",c:"sad/aesthetic",h:86,g:"Dark ambient"},
+];
+
+const SCRIPTS = {
+  "Quote / Attitude (bhxvfr)":{
+    "Quote Reel":{hk:'✦ "Not everyone who leaves was lost. Some just outgrew the place."',sc:"Open: Dark aesthetic background (deep black / purple) | Text appears — quote in clean minimal font | Audio: slowed reverb emotional song at low volume | Duration: 7–12 sec so it loops naturally | End: @bhxvfr watermark fades in bottom-right",cp:"Some things don't need explanation.\nThey just need space to exist.\n\n•\n\nTag someone who needs this 💜\nSave this 🔖",ht:"#attitude #quotes #selflove #vibes #genz #instaquote #quotesofinstagram #desivibes #aesthetic",kw:"attitude quotes Instagram, Gen Z quotes India, relatable quotes, quote reels",tm:"9:00–10:00 PM IST",rv:"20K–300K"},
+  },
+  "Finance / Money":{
+    "Myth Buster":{hk:"99% log yahan galti karte hain — SIP ke baare mein",sc:"Open: Bold text '₹100 SIP in 10 years = ?' on screen | Cut 1: Your face, surprised expression | Cut 2: Calculator showing ₹1.2L result | Cut 3: 'Iss ek change se ₹12K extra annually' | Close: 'Save this — future mein kaam aayega'",cp:"99% log ek cheez miss karte hain SIP mein 😬\n\nFull breakdown below ↓\n\nSave this reel 🔖",ht:"#financeIndia #SIPinvesting #moneytips #investing #personalfinance #growmoney #rupees",kw:"SIP India, mutual funds tips, investing beginners India",tm:"7:30 PM IST",rv:"50K–500K"},
+    "3-Tip Speedrun":{hk:"3 money hacks in 15 seconds — save this 💰",sc:"Beat drop → TEXT: 'HACK 1: Emergency fund = 3x monthly salary' → Cut → 'HACK 2: Automate SIP on salary day' → Cut → 'HACK 3: Track every ₹100+ expense for 30 days' → End: 'Save this. Thank me later.'",cp:"3 money habits that changed everything 💰\n\nWhich one are you starting today?\n\nSave this reel 🔖",ht:"#moneytips #financeIndia #savemoney #rupees #personalfinance #youngIndia",kw:"money habits India, save money tips, salary management",tm:"7:00 PM IST",rv:"80K–800K"},
+  },
+  "Student Life":{
+    "POV Storytelling":{hk:"POV: Day 1 of CA Final prep — aaj se 6 months",sc:"Open: 5 AM alarm | Voiceover: 'Aaj se exactly 6 mahine ki journey shuru' | B-roll: Study table, books, coffee | Text: 'No one said it would be easy. They said it would be worth it.' | Close: 'Follow — daily updates coming'",cp:"Day 1 of the grind. CA Final prep starts NOW 📚\n\nDrop a 🔥 if you're in exam mode too\n\nFollow for daily prep updates",ht:"#studywithme #CAFinal #UPSC #JEE #examprep #studentlife",kw:"CA Final prep, UPSC study tips, exam motivation India",tm:"8:00 PM IST",rv:"30K–300K"},
+  },
+  "Skincare / Beauty":{
+    "Before / After":{hk:"7-day skin transformation — only ₹200 products",sc:"Open: 0.5s 'after' shot → cut to 'before' → Text: '7 days. ₹200. Yeh kiya.' → Show each product (1 sec each) → Final before/after split → 'Save this for your skin journey'",cp:"7 din mein yeh result?? And I only spent ₹200 😭\n\nFull product list below!\n\nSave this 🔖",ht:"#skincareIndia #glowup #skincareroutine #affordableskincare #indianskincare",kw:"affordable skincare India, natural skincare, ₹200 skincare",tm:"7:30 PM IST",rv:"100K–1M"},
+  },
+};
+
+const CHECKLIST = [
+  {c:"Strong visual hook in first 3 seconds?",t:"Bold quote text or striking image before anything else appears"},
+  {c:"Emotionally matched audio selected?",t:"Slowed reverb for sad/aesthetic, energetic for hustle, ambient for healing"},
+  {c:"Quote is specific enough to feel personal?",t:"Not 'feel sad sometimes' but an exact, named, unspoken feeling"},
+  {c:"On-screen text readable on mobile?",t:"60%+ of Reels viewed without sound in India — text is essential"},
+  {c:"Caption ends with 'tag someone' or 'save this'?",t:"This CTA increases shares 2–3× for emotional content"},
+  {c:"8–12 relevant hashtags added?",t:"Quote-specific + India-specific mix — not 30 generic tags"},
+  {c:"Posting between 9:00–11:00 PM IST?",t:"Prime window for quote/emotional content in India"},
+  {c:"Sharing to Stories immediately after?",t:"Re-shares in first 15 min spike the algorithm signal"},
+  {c:"Will reply to first 5 comments within 15 minutes?",t:"Comment velocity in the first hour counts double"},
+  {c:"Visual aesthetic consistent with previous posts?",t:"Same font/colour/mood — @bhxvfr should be instantly recognisable"},
+];
+
+// ══ STATE ══════════════════════════════════════════════════════════════════
+let qcat = 'attitude', saved = [], htimer;
+
+// ══ NAV ════════════════════════════════════════════════════════════════════
+function go(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  const pg = document.getElementById('p-' + id);
+  if (pg) pg.classList.add('on');
+  if (el) el.classList.add('on');
+  document.getElementById('content').scrollTop = 0;
+  if (window.innerWidth <= 920) closeSB();
+  if (id === 'hinglish') initH();
+  if (id === 'timing') renderHM();
+  if (id === 'audio') initAudio();
+  if (id === 'toolkit') initTK();
+}
+
+function toggleSB() {
+  document.getElementById('sidebar').classList.toggle('mob');
+  document.getElementById('sov').classList.toggle('open');
+}
+function closeSB() {
+  document.getElementById('sidebar').classList.remove('mob');
+  document.getElementById('sov').classList.remove('open');
+}
+
+// ══ QUOTE GENERATOR ════════════════════════════════════════════════════════
+function setQcat(cat, el) {
+  qcat = cat;
+  document.querySelectorAll('.qtab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  genQuote();
+}
+
+function genQuote() {
+  const pool = QUOTES[qcat] || QUOTES.attitude;
+  const q = pool[Math.floor(Math.random() * pool.length)];
+  document.getElementById('q-text').textContent = '\u201c' + q.q + '\u201d';
+  document.getElementById('q-attr').textContent = q.a + ' \u00b7 @BHXVFR';
+  buildQout(q.q);
+}
+
+function buildQout(txt) {
+  const cd = QCAPS[qcat] || QCAPS.attitude;
+  const ob = document.getElementById('q-out');
+  const bd = document.getElementById('q-body');
+  bd.innerHTML = `
+    <div class="fw"><div class="ol">QUOTE (COPY-PASTE TO REEL)</div><div class="ov hl">\u201c${txt}\u201d</div></div>
+    <div class="fw"><div class="ol">CAPTION</div><div class="ov" style="white-space:pre-line;line-height:1.8;">${cd.cap}</div></div>
+    <div><div class="ol">HASHTAGS</div><div class="ov" style="font-family:var(--fm);font-size:11px;line-height:2;color:var(--a3);">${cd.hash}</div></div>
+    <div><div class="ol">RECOMMENDED AUDIO</div><div class="ov">${cd.audio}</div></div>
+    <div><div class="ol">BEST POST TIME</div><div class="ov" style="font-family:var(--fd);font-size:32px;letter-spacing:1px;color:var(--bx);">9–10 PM IST</div></div>
+    <div><div class="ol">VISUAL STYLE</div><div class="ov" style="font-size:13px;color:var(--mu2);">Dark background (deep black or purple-grey) · Clean minimal font · Quote centred · @bhxvfr watermark bottom-right</div></div>
+  `;
+  ob.style.display = 'block';
+}
+
+function copyQtext() {
+  const t = document.getElementById('q-text').textContent;
+  navigator.clipboard.writeText(t).then(() => {
+    const b = document.querySelectorAll('button[onclick="copyQtext()"]')[0];
+    if (b) { const o = b.textContent; b.textContent = 'COPIED ✓'; setTimeout(() => b.textContent = o, 2000); }
+  }).catch(() => {});
+}
+
+function saveQuote() {
+  const t = document.getElementById('q-text').textContent;
+  saved.push({ q: t, c: qcat.toUpperCase() });
+  renderSaved();
+}
+
+function renderSaved() {
+  const w = document.getElementById('saved-wrap');
+  const l = document.getElementById('saved-list');
+  if (!saved.length) { w.style.display = 'none'; return; }
+  w.style.display = 'block';
+  l.innerHTML = saved.map((s, i) => `
+    <div style="display:flex;gap:10px;padding:12px 14px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:4px;">
+      <div style="flex:1;min-width:0;"><div style="font-size:13px;line-height:1.6;">${s.q}</div><div style="font-family:var(--fm);font-size:10px;color:var(--bx);margin-top:4px;letter-spacing:1px;">${s.c}</div></div>
+      <button onclick="saved.splice(${i},1);renderSaved()" style="background:none;border:none;color:var(--mu);font-size:14px;cursor:pointer;flex-shrink:0;padding:2px;">✕</button>
+    </div>
+  `).join('');
+}
+
+function clearSaved() { saved = []; renderSaved(); }
+
+// ══ HINGLISH ═══════════════════════════════════════════════════════════════
+function initH() { renderH(HINGLISH); startHtimer(); }
+function startHtimer() { clearInterval(htimer); htimer = setInterval(() => { const s=[...HINGLISH].sort(()=>Math.random()-.5); renderH(s); document.getElementById('h-ts').textContent='UPDATED '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); }, 60000); }
+function refreshH() { const s=[...HINGLISH].sort(()=>Math.random()-.5); renderH(s); document.getElementById('h-ts').textContent='UPDATED '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); }
+function renderH(data) {
+  const el = document.getElementById('h-feed');
+  if (!el) return;
+  el.innerHTML = data.map((t,i) => `
+    <div class="tfi" onclick="navigator.clipboard.writeText('${t.p.replace(/'/g,"\\'")}').catch(()=>{})">
+      <div class="tf-rank">${String(i+1).padStart(2,'0')}</div>
+      <div class="tf-body"><div class="tf-phrase">${t.e} ${t.p}</div><div class="tf-meaning">${t.m}</div></div>
+      <div class="tf-meta"><div class="tf-spike">${t.sp}</div><div class="tf-niche">${t.n}</div></div>
+    </div>
+  `).join('');
+}
+
+// ══ HOOK PREVIEW ═══════════════════════════════════════════════════════════
+function prevH(el, text, cap, stop, share, india) {
+  document.querySelectorAll('.hopt').forEach(h => h.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('p-hook-txt').textContent = text;
+  document.getElementById('p-cap-txt').textContent = cap;
+  document.getElementById('prev-live').style.display = 'inline-flex';
+  setTimeout(() => {
+    ['stop','share','india'].forEach((k,j) => {
+      const v = [stop,share,india][j];
+      document.getElementById('s-'+k).style.width = v+'%';
+      document.getElementById('sv-'+k).textContent = v+'%';
+    });
+  }, 50);
+}
+
+// ══ HEATMAP ════════════════════════════════════════════════════════════════
+function renderHM() {
+  const cat = document.getElementById('t-cat')?.value || 'quote';
+  const data = TIMING[cat] || TIMING.quote;
+  const days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  const dm = [1,.9,.95,1,1.1,1.2,1.05];
+  const el = document.getElementById('hm-wrap');
+  if (!el) return;
+  let h = '<div class="hmg"><div class="hmh"></div>';
+  for (let i=0;i<24;i++) h += `<div class="hmh">${i}</div>`;
+  days.forEach((d,di) => {
+    h += `<div class="hml">${d}</div>`;
+    data.forEach((v,hi) => {
+      const val = Math.min(10, v*dm[di]*(0.8+Math.random()*.4));
+      const op = (val/10)*.9+.05;
+      h += `<div class="hmc" style="background:rgba(192,132,252,${op.toFixed(2)})" data-tip="${hi}:00 — ${val>8?'Prime':val>5?'Good':val>3?'Moderate':'Low'} (${Math.round(val*10)}%)"></div>`;
+    });
+  });
+  h += '</div>';
+  el.innerHTML = h;
+  const peaks = TPEAKS[cat] || TPEAKS.quote;
+  const reco = document.getElementById('t-reco');
+  if (reco) {
+    reco.innerHTML = peaks.map((p,i) => `
+      <div class="card cp cla ${i===0?'cla-bx':i===1?'cla-gr':'cla-ye'}">
+        <div style="font-family:var(--fd);font-size:${i===0?'30':'24'}px;letter-spacing:1px;color:${i===0?'var(--bx)':'var(--tx)'};margin-bottom:4px;">${p.t}</div>
+        <div style="font-family:var(--fm);font-size:10px;color:${i===0?'var(--bx)':'var(--mu)'};letter-spacing:1.5px;margin-bottom:8px;text-transform:uppercase;">${p.l}</div>
+        <div style="font-size:12px;color:var(--mu2);line-height:1.5;">${p.tip}</div>
+      </div>
+    `).join('');
+  }
+}
+
+// ══ REACH ══════════════════════════════════════════════════════════════════
+function renderReach() {
+  const cat = document.getElementById('r-cat')?.value;
+  const el = document.getElementById('r-out');
+  if (!el || !cat || !REACH[cat]) { if(el) el.innerHTML=''; return; }
+  const d = REACH[cat];
+  el.innerHTML = `
+    <div class="card cp" style="margin-bottom:14px;background:rgba(192,132,252,.05);border-color:rgba(192,132,252,.25);">
+      <div style="font-size:14.5px;font-weight:600;">${d.h}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${d.t.map(t => `
+        <div class="card cp" style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;flex-shrink:0;margin-top:2px;">${t.i}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px;flex-wrap:wrap;">
+              <div style="font-size:14px;font-weight:600;">${t.t}</div>
+              <span class="badge b-gr" style="font-size:10px;">${t.s}</span>
+            </div>
+            <div style="font-size:13px;color:var(--mu2);line-height:1.7;">${t.d}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ══ CAPTION GENERATOR ══════════════════════════════════════════════════════
+function genCaption() {
+  const cat = document.getElementById('cap-cat').value || 'quote';
+  const topic = document.getElementById('cap-topic').value || '';
+  const tone = document.getElementById('cap-tone').value;
+  const lang = document.getElementById('cap-lang').value;
+  const cd = QCAPS[cat] || QCAPS.attitude;
+  const topicLine = topic ? `\n\nToday's focus: ${topic}` : '';
+  const langNote = lang.includes('Hindi') ? '\n\n*Written in Hinglish for maximum India resonance' : '';
+  const fullCap = cd.cap + topicLine + langNote;
+  const out = document.getElementById('cap-out');
+  const body = document.getElementById('cap-body');
+  body.innerHTML = `
+    <div class="fw"><div class="ol">CAPTION (READY TO PASTE)</div><div class="ov hl" style="white-space:pre-line;line-height:1.8;">${fullCap}</div></div>
+    <div><div class="ol">HASHTAGS (8–12)</div><div class="ov" style="font-family:var(--fm);font-size:11px;line-height:2;color:var(--a3);">${cd.hash}</div></div>
+    <div><div class="ol">RECOMMENDED AUDIO</div><div class="ov">${cd.audio}</div></div>
+    <div><div class="ol">TONE</div><div class="ov">${tone}</div></div>
+    <div><div class="ol">BEST POST TIME</div><div class="ov" style="font-family:var(--fd);font-size:30px;letter-spacing:1px;color:var(--bx);">9–10 PM IST</div></div>
+    <div class="fw"><div class="ol">CAPTION TIPS FOR @BHXVFR</div><div class="ov" style="font-size:13px;line-height:1.7;color:var(--mu2);">1. For quote content, keep captions SHORT — 2–3 lines max + CTA. The quote IS the content.<br>2. First comment: paste hashtags as a comment to keep caption clean and minimal.<br>3. Reply to first 5 comments within 15 minutes of posting.<br>4. Share to Stories immediately after posting for first-hour signal boost.</div></div>
+  `;
+  out.style.display = 'block';
+  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══ SCRIPT GENERATOR ═══════════════════════════════════════════════════════
+function genScript() {
+  const niche = document.getElementById('sc-niche').value;
+  const fmt = document.getElementById('sc-format').value;
+  const city = document.getElementById('sc-city').value || '';
+  if (!niche || !fmt) { alert('Please select niche and format!'); return; }
+  const db = SCRIPTS[niche] || SCRIPTS['Finance / Money'];
+  const data = db[fmt] || db[Object.keys(db)[0]];
+  const ch = city && city !== 'All India' ? ` (${city} creators, this is for you!)` : '';
+  const out = document.getElementById('sc-out');
+  const body = document.getElementById('sc-body');
+  body.innerHTML = `
+    <div class="fw"><div class="ol">HOOK (FIRST 3 SECONDS)</div><div class="ov hl">${data.hk}${ch}</div></div>
+    <div class="fw"><div class="ol">SCRIPT + SHOT LIST</div><div class="ov" style="white-space:pre-line;line-height:1.8;">${data.sc}</div></div>
+    <div><div class="ol">CAPTION</div><div class="ov" style="white-space:pre-line;line-height:1.7;">${data.cp}</div></div>
+    <div><div class="ol">HASHTAGS</div><div class="ov" style="font-family:var(--fm);font-size:11px;line-height:2;color:var(--a3);">${data.ht}</div></div>
+    <div><div class="ol">SEO KEYWORDS</div><div class="ov" style="font-size:12.5px;color:var(--mu2);">${data.kw}</div></div>
+    <div><div class="ol">BEST POST TIME</div><div class="ov" style="font-family:var(--fd);font-size:30px;letter-spacing:1px;color:var(--bx);">${data.tm}</div></div>
+    <div><div class="ol">EST. VIEWS RANGE</div><div class="ov" style="font-family:var(--fd);font-size:30px;letter-spacing:1px;color:var(--a3);">${data.rv}</div></div>
+  `;
+  out.style.display = 'block';
+  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══ VIRALITY SCORER ════════════════════════════════════════════════════════
+function scoreV() {
+  const idea = document.getElementById('v-idea').value;
+  const hook = document.getElementById('v-hook').value;
+  const audio = document.getElementById('v-audio').value;
+  const india = document.getElementById('v-india').value;
+  let score = 40, tips = [];
+  if (hook==='yes'){score+=20;}else if(hook==='maybe'){score+=8;tips.push({i:'⚡',t:'Add a strong hook in first 3 sec — for quote content, make the opening word impactful and bold.'});}else{tips.push({i:'🚨',t:'Missing hook! For quote reels, the first text that appears is the hook. Make it powerful.'});}
+  if (audio==='yes'){score+=15;}else{score-=5;tips.push({i:'🎵',t:'Add emotionally matched audio — for quote content this is essential. Slowed reverb for sad/aesthetic, energetic for hustle.'});}
+  if (india==='yes'){score+=20;}else if(india==='partial'){score+=10;tips.push({i:'🇮🇳',t:'Strengthen the India angle — add a Hinglish phrase, Indian cultural reference, or city shoutout.'});}else{score-=10;tips.push({i:'🇮🇳',t:'No India angle = 60% less reach with Indian audience. Add Hinglish or Indian emotion reference.'});}
+  if (idea.length>80){score+=5;}else{tips.push({i:'📝',t:'Add more detail — is the quote specific enough to create the "that\'s literally me" moment?'});}
+  score = Math.max(10, Math.min(98, score));
+  const col = score>=75?'var(--a3)':score>=50?'var(--a2)':'var(--ac)';
+  const lbl = score>=75?'HIGH VIRALITY':score>=50?'MODERATE':'LOW';
+  const el = document.getElementById('v-out');
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div class="card cp" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;">
+      <div class="vs-c" style="border-color:${col};">
+        <div class="vs-n" style="color:${col};">${score}</div>
+        <div class="vs-l" style="color:${col};">${lbl}</div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:16px;font-weight:600;margin-bottom:8px;">Virality Score: ${score}/100</div>
+        <div class="sb"><div class="sb-l">Overall virality</div><div class="sb-t"><div class="sb-f" style="width:${score}%;background:${col}"></div></div><div class="sb-p">${score}%</div></div>
+        <div style="font-size:12.5px;color:var(--mu2);margin-top:8px;line-height:1.6;">${score>=75?'Strong concept! Apply suggestions below to push it further.':score>=50?'Good foundation. Fix the flagged issues for significantly better reach.':'Needs work. Address all issues below before shooting.'}</div>
+      </div>
+    </div>
+    ${tips.length?`<div class="card" style="overflow:hidden;"><div class="phdr"><span class="ptitle">IMPROVEMENTS</span></div><div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;">${tips.map(t=>`<div style="display:flex;gap:10px;padding:10px 12px;background:rgba(192,132,252,.04);border-radius:8px;border:1px solid rgba(192,132,252,.15);"><span style="font-size:18px;flex-shrink:0;">${t.i}</span><div style="font-size:13px;color:var(--tx);line-height:1.6;">${t.t}</div></div>`).join('')}</div></div>`:'<div class="card cp" style="background:rgba(0,229,160,.05);border-color:rgba(0,229,160,.25);font-size:14px;">✅ Excellent concept! All key virality factors present. Post at 9–10 PM IST for maximum reach.</div>'}
+    <div style="margin-top:14px;"><button class="btn btn-o" onclick="go(\'quotes\',document.querySelector(\'[onclick*=quotes]\'))">Generate a quote for this reel ↗</button></div>
+  `;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══ AUDIO ══════════════════════════════════════════════════════════════════
+function initAudio() {
+  const el = document.getElementById('audio-list');
+  if (!el || el.children.length) return;
+  el.innerHTML = AUDIO_DATA.map(a => `
+    <div class="audio-card">
+      <div class="audio-top">
+        <div class="audio-disc">🎵</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px;">${a.t}</div>
+          <div style="font-size:12px;color:var(--mu2);">${a.ar}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="badge ${a.h>92?'b-re':'b-gr'}">${a.h}% heat</span>
+          <span style="font-family:var(--fm);font-size:10px;color:var(--mu);">${a.g}</span>
+        </div>
+      </div>
+      <div class="audio-bot">
+        <div style="font-size:12.5px;color:var(--mu2);">Best for: <strong style="color:var(--tx);">${a.u}</strong></div>
+        <span class="tbadge tb-bx">${a.c}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══ TOOLKIT ════════════════════════════════════════════════════════════════
+function initTK() {
+  const cw = document.getElementById('ck-wrap');
+  if (cw && !cw.children.length) {
+    cw.innerHTML = CHECKLIST.map((item, i) => `
+      <div class="ck-row" onclick="toggleCK(this,${i})">
+        <div id="ck${i}" class="ck-box"></div>
+        <div><div class="ck-main">${item.c}</div><div class="ck-tip">${item.t}</div></div>
+      </div>
+    `).join('');
+  }
+}
+
+function toggleCK(row, i) {
+  const b = document.getElementById('ck'+i);
+  if (!b) return;
+  const on = b.textContent === '✓';
+  b.textContent = on ? '' : '✓';
+  b.style.background = on ? 'transparent' : 'rgba(0,229,160,.15)';
+  b.style.borderColor = on ? 'var(--bd2)' : 'var(--a3)';
+}
+
+// ══ UTILS ══════════════════════════════════════════════════════════════════
+function copyOut(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText).then(() => {
+    const b = el.closest('.out-box')?.querySelector('.copybtn');
+    if (b) { const o = b.textContent; b.textContent = 'COPIED ✓'; setTimeout(() => b.textContent = o, 2000); }
+  }).catch(() => { alert('Please select and copy manually.'); });
+}
+
+// ══ INIT ═══════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  genQuote();
+  setTimeout(renderHM, 150);
+});
+</script>
+</body>
+</html>
